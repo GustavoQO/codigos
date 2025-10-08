@@ -1,0 +1,559 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>G.M.K Joias</title>
+  <style>
+    :root {
+      --dourado: #d4af37;
+      --preto: #121212;
+      --cinza: #1e1e1e;
+      --branco: #ffffff;
+    }
+
+    body {
+      background-color: var(--preto);
+      color: var(--branco);
+      font-family: 'Segoe UI', Arial, sans-serif;
+      margin: 0;
+      padding: 0;
+      transition: background-color 0.5s;
+    }
+
+    header {
+      background-color: var(--cinza);
+      padding: 15px 0;
+      text-align: center;
+      border-bottom: 2px solid var(--dourado);
+    }
+
+    header h1 {
+      color: var(--dourado);
+      font-size: 2em;
+      margin: 0;
+    }
+
+    nav {
+      margin-top: 10px;
+    }
+
+    nav button {
+      background-color: transparent;
+      border: 2px solid var(--dourado);
+      color: var(--dourado);
+      padding: 8px 15px;
+      margin: 5px;
+      cursor: pointer;
+      font-weight: bold;
+      border-radius: 8px;
+      transition: all 0.3s;
+    }
+
+    nav button:hover {
+      background-color: var(--dourado);
+      color: var(--preto);
+    }
+
+    main {
+      padding: 20px;
+    }
+
+    section {
+      display: none;
+      animation: aparecer 0.8s ease;
+    }
+
+    section.active {
+      display: block;
+    }
+
+    @keyframes aparecer {
+      from { opacity: 0; transform: translateY(20px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    .produtos {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 20px;
+      margin-top: 30px;
+    }
+
+    .produto {
+      background-color: var(--cinza);
+      border: 1px solid var(--dourado);
+      border-radius: 12px;
+      width: 250px;
+      padding: 15px;
+      text-align: center;
+      transition: transform 0.3s, box-shadow 0.3s;
+    }
+
+    .produto:hover {
+      transform: scale(1.05);
+      box-shadow: 0 0 20px rgba(212, 175, 55, 0.5);
+    }
+
+    .produto img {
+      width: 100%;
+      border-radius: 10px;
+    }
+
+    .produto h3 {
+      color: var(--dourado);
+      margin: 10px 0 5px 0;
+    }
+
+    .produto button {
+      background-color: var(--dourado);
+      border: none;
+      color: var(--preto);
+      padding: 8px 12px;
+      border-radius: 8px;
+      cursor: pointer;
+      font-weight: bold;
+      transition: background-color 0.3s;
+    }
+
+    .produto button:hover {
+      background-color: #e6c84f;
+    }
+
+    footer {
+      background-color: var(--cinza);
+      text-align: center;
+      padding: 15px;
+      border-top: 2px solid var(--dourado);
+      margin-top: 40px;
+      font-size: 0.9em;
+    }
+
+    #carrinho {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background-color: rgba(0, 0, 0, 0.8);
+      display: none;
+      justify-content: center;
+      align-items: center;
+      z-index: 10;
+    }
+
+    #carrinho-conteudo {
+      background-color: var(--cinza);
+      border: 2px solid var(--dourado);
+      border-radius: 10px;
+      padding: 20px;
+      width: 90%;
+      max-width: 400px;
+      color: white;
+    }
+
+    #carrinho-conteudo h2 {
+      color: var(--dourado);
+    }
+
+    #carrinho ul {
+      list-style: none;
+      padding: 0;
+      max-height: 250px;
+      overflow-y: auto;
+    }
+
+    #carrinho ul li {
+      background-color: #222;
+      margin: 5px 0;
+      padding: 8px;
+      border-radius: 6px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    #carrinho ul li button {
+      background-color: crimson;
+      border: none;
+      color: white;
+      padding: 5px;
+      border-radius: 5px;
+      cursor: pointer;
+    }
+
+    #carrinho ul li button:hover {
+      background-color: red;
+    }
+
+    .botoes-carrinho {
+      display: flex;
+      justify-content: space-between;
+      margin-top: 10px;
+    }
+
+    .botoes-carrinho button {
+      background-color: var(--dourado);
+      color: var(--preto);
+      border: none;
+      padding: 8px 12px;
+      border-radius: 8px;
+      cursor: pointer;
+      font-weight: bold;
+    }
+
+    .botoes-carrinho button:hover {
+      background-color: #e6c84f;
+    }
+
+    #mensagem-finalizar {
+      display: none;
+      margin-top: 10px;
+      color: var(--dourado);
+      text-align: center;
+      font-weight: bold;
+    }
+
+    .hidden {
+      display: none;
+    }
+
+    .jogos button {
+      background-color: var(--dourado);
+      border: none;
+      padding: 10px 15px;
+      border-radius: 8px;
+      color: var(--preto);
+      font-weight: bold;
+      cursor: pointer;
+      transition: transform 0.2s;
+    }
+
+    .jogos button:hover {
+      transform: scale(1.05);
+      background-color: #e6c84f;
+    }
+
+  </style>
+</head>
+<body>
+  <header>
+    <h1>G.M.K Joias</h1>
+    <nav>
+      <button onclick="mostrarSecao('home')">Início</button>
+      <button onclick="mostrarSecao('sobre')">Sobre Nós</button>
+      <button onclick="mostrarSecao('jogos')">Passatempo</button>
+      <button onclick="abrirCarrinho()">🛒 Carrinho</button>
+    </nav>
+  </header>
+
+  <main>
+    <!-- SEÇÃO HOME -->
+    <section id="home" class="active">
+      <h1 style="text-align:center; color: var(--dourado);">Brilhe com Elegância</h1>
+      <h2 style="text-align:center; color: var(--dourado);">Joias em destaque</h2>
+      <div class="produtos">
+        <div class="produto" data-images="imagemanel.png,imagemanel2.jpg,imagemanel3.jpg">
+          <img src="imagemanel.png" alt="Anel Dourado">
+          <h3>Anel de Ouro</h3>
+          <p>R$ 199,90</p>
+          <button onclick="adicionarCarrinho('Anel Dourado', 199.90)">Adicionar ao Carrinho</button>
+        </div>
+
+        <div class="produto" data-images="imagemcolar.png,imagemcolar2.jpg">
+          <img src="imagemcolar.png" alt="Colar de Pérola">
+          <h3>Colar de Pérola</h3>
+          <p>R$ 249,90</p>
+          <button onclick="adicionarCarrinho('Colar de Pérola', 249.90)">Adicionar ao Carrinho</button>
+        </div>
+
+        <div class="produto" data-images="imagempulseira.jpg,imagempulseira2.jpg">
+          <img src="imagempulseira.jpg" alt="Pulseira Dourada">
+          <h3>Pulseira de Ouro</h3>
+          <p>R$ 159,90</p>
+          <button onclick="adicionarCarrinho('Pulseira Dourada', 159.90)">Adicionar ao Carrinho</button>
+        </div>
+      </div>
+
+      <div style="text-align:center; margin-top: 30px;">
+        <button onclick="comprar()">Comprar Agora</button>
+        <p id="mensagem-compra" style="color: var(--dourado); margin-top: 10px;"></p>
+      </div>
+    </section>
+    <!-- MODAL DO CARRINHO -->
+    <div id="carrinho">
+      <div id="carrinho-conteudo">
+        <h2>Seu Carrinho</h2>
+        <ul id="lista-carrinho"></ul>
+        <p id="total-carrinho"><strong>Total:</strong> R$ 0,00</p>
+        <div class="botoes-carrinho">
+          <button onclick="limparCarrinho()">🗑️ Limpar</button>
+          <button onclick="fecharCarrinho()">❌ Fechar</button>
+          <button onclick="finalizarCompra()">✅ Finalizar</button>
+        </div>
+        <p id="mensagem-finalizar">Compra finalizada com sucesso!</p>
+      </div>
+    </div>
+    <!-- SEÇÃO SOBRE NÓS -->
+    <section id="sobre">
+      <h2 style="text-align:center; color: var(--dourado);">Sobre Nós</h2>
+      <div style="max-width: 800px; margin: auto; background-color: var(--cinza); padding: 20px; border-radius: 8px; box-shadow: 0 0 15px rgba(212, 175, 55, 0.2);">
+        <p>
+          A <strong>G.M.K</strong> nasceu da paixão por brilho, elegância e o poder das joias em transformar histórias.
+          Fundada em 2022, através de um projeto ambicioso de Gustavo, Maísa e Katherine, nossa missão é unir sofisticação com empatia — por isso somos <em>Glow, Majestory e Kindness</em>.
+        </p>
+        <p>
+          Cada peça é criada com dedicação, simbolizando poder e gentileza. Representamos mais do que joias:
+          somos um reflexo de personalidade, respeito e arte — transmitindo delicadeza desde peças sofisticadas até as mais acessíveis!
+        </p>
+      </div>
+    </section>
+
+    <!-- SEÇÃO JOGOS -->
+    <section id="jogos">
+      <h2 style="text-align:center; color: var(--dourado);">Enquanto espera, que tal jogar?</h2>
+      <div class="jogos" style="text-align:center; margin-top:20px;">
+        <button onclick="iniciarJogoVelha()">🎮 Jogo da Velha</button>
+        <button onclick="iniciarCampoMinado()">💣 Campo Minado</button>
+      </div>
+      <!-- JOGO DA VELHA -->
+      <div id="jogoVelha" class="hidden" style="margin-top: 30px; text-align:center;">
+        <h3 style="color: var(--dourado);">Jogo da Velha</h3>
+        <div id="velhaTabuleiro" style="display: grid; grid-template-columns: repeat(3, 100px); gap: 10px; justify-content: center; margin-top: 10px;"></div>
+      </div>
+
+      <!-- CAMPO MINADO -->
+      <div id="campoMinado" class="hidden" style="margin-top: 30px; text-align:center;">
+        <h3 style="color: var(--dourado);">Campo Minado</h3>
+        <label for="tamanho">Tamanho:</label>
+        <select id="tamanho">
+          <option value="5">5x5</option>
+          <option value="6">6x6</option>
+          <option value="8">8x8</option>
+        </select>
+        <button onclick="gerarCampo()">Iniciar Jogo</button>
+        <div id="cronometro" style="margin: 10px 0; font-weight: bold;">⏱️ Tempo: 0s</div>
+        <div id="campo" style="display: grid; gap: 5px; justify-content: center;"></div>
+      </div>
+    </section>
+  </main>
+
+  <script>
+    const produtos = document.querySelectorAll(".produto");
+    produtos.forEach(prod => {
+      const imgs = prod.dataset.images.split(",");
+      let index = 0;
+      const imgElement = prod.querySelector("img");
+      setInterval(() => {
+        index = (index + 1) % imgs.length;
+        imgElement.src = imgs[index];
+      }, 3000);
+    });
+    // Alterna as seções visíveis
+    function mostrarSecao(secaoId) {
+      const secoes = document.querySelectorAll("main > section");
+      secoes.forEach(sec => sec.classList.remove("active"));
+      document.getElementById(secaoId).classList.add("active");
+    }
+
+    // Mensagem de compra
+    function comprar() {
+      const msg = document.getElementById("mensagem-compra");
+      msg.innerHTML = "✅ Pedido registrado com sucesso! Aguarde a entrega.";
+      setTimeout(() => msg.innerHTML = "", 4000);
+    }
+
+    // ---------------- JOGO DA VELHA ----------------
+    function iniciarJogoVelha() {
+      document.getElementById("jogoVelha").classList.remove("hidden");
+      document.getElementById("campoMinado").classList.add("hidden");
+
+      const tabuleiro = document.getElementById("velhaTabuleiro");
+      tabuleiro.innerHTML = "";
+      let jogador = "X";
+      let estado = Array(9).fill("");
+
+      for (let i = 0; i < 9; i++) {
+        const btn = document.createElement("button");
+        btn.style.width = "100px";
+        btn.style.height = "100px";
+        btn.style.fontSize = "2em";
+        btn.style.background = "#333";
+        btn.style.color = "white";
+        btn.style.border = "2px solid var(--dourado)";
+        btn.onclick = () => {
+          if (btn.innerText === "") {
+            btn.innerText = jogador;
+            estado[i] = jogador;
+            if (verificarVitoria(estado, jogador)) {
+              alert(`🎉 ${jogador} venceu!`);
+              iniciarJogoVelha();
+            } else if (estado.every(c => c !== "")) {
+              alert("🤝 Empate!");
+              iniciarJogoVelha();
+            } else {
+              jogador = jogador === "X" ? "O" : "X";
+            }
+          }
+        };
+        tabuleiro.appendChild(btn);
+      }
+    }
+
+    function verificarVitoria(est, j) {
+      const linhas = [
+        [0,1,2],[3,4,5],[6,7,8],
+        [0,3,6],[1,4,7],[2,5,8],
+        [0,4,8],[2,4,6]
+      ];
+      return linhas.some(l => l.every(i => est[i] === j));
+    }
+
+    // ---------------- CAMPO MINADO ----------------
+    let tempo = 0;
+    let cronometroInterval;
+
+    function iniciarCampoMinado() {
+      document.getElementById("campoMinado").classList.remove("hidden");
+      document.getElementById("jogoVelha").classList.add("hidden");
+    }
+
+    function gerarCampo() {
+      clearInterval(cronometroInterval);
+      tempo = 0;
+      document.getElementById("cronometro").innerText = "⏱️ Tempo: 0s";
+      cronometroInterval = setInterval(() => {
+        tempo++;
+        document.getElementById("cronometro").innerText = `⏱️ Tempo: ${tempo}s`;
+      }, 1000);
+
+      const campo = document.getElementById("campo");
+      campo.innerHTML = "";
+      const tamanho = parseInt(document.getElementById("tamanho").value);
+      const minas = Math.floor(tamanho * tamanho * 0.2);
+      const matriz = Array.from({ length: tamanho }, () => Array(tamanho).fill(0));
+
+      campo.style.gridTemplateColumns = `repeat(${tamanho}, 40px)`;
+
+      // Gera minas
+      let colocadas = 0;
+      while (colocadas < minas) {
+        let x = Math.floor(Math.random() * tamanho);
+        let y = Math.floor(Math.random() * tamanho);
+        if (matriz[x][y] !== "💣") {
+          matriz[x][y] = "💣";
+          colocadas++;
+        }
+      }
+
+      for (let i = 0; i < tamanho; i++) {
+        for (let j = 0; j < tamanho; j++) {
+          const btn = document.createElement("button");
+          btn.style.width = "40px";
+          btn.style.height = "40px";
+          btn.style.backgroundColor = "#444";
+          btn.style.color = "white";
+          btn.style.border = "1px solid #666";
+          btn.style.fontWeight = "bold";
+          btn.onclick = () => {
+            if (matriz[i][j] === "💣") {
+              btn.innerText = "💣";
+              alert("💥 Você perdeu!");
+              clearInterval(cronometroInterval);
+              gerarCampo();
+            } else {
+              const num = contarMinas(i, j, matriz, tamanho);
+              btn.innerText = num;
+              btn.disabled = true;
+              btn.style.backgroundColor = "#222";
+              btn.style.color = "#d4af37";
+            }
+          };
+          campo.appendChild(btn);
+        }
+      }
+    }
+
+    function contarMinas(x, y, mat, tamanho) {
+      let count = 0;
+      for (let i = x - 1; i <= x + 1; i++) {
+        for (let j = y - 1; j <= y + 1; j++) {
+          if (i >= 0 && i < tamanho && j >= 0 && j < tamanho && mat[i][j] === "💣") {
+            count++;
+          }
+        }
+      }
+      return count;
+    }
+
+    // ---------------- CARRINHO ----------------
+    const carrinho = [];
+    const listaCarrinho = document.getElementById("lista-carrinho");
+    const totalCarrinho = document.getElementById("total-carrinho");
+    const modalCarrinho = document.getElementById("carrinho");
+    const mensagemFinalizar = document.getElementById("mensagem-finalizar");
+
+    function adicionarCarrinho(nome, preco) {
+      carrinho.push({ nome, preco });
+      atualizarCarrinho();
+      abrirCarrinho();
+    }
+
+    function atualizarCarrinho() {
+      listaCarrinho.innerHTML = "";
+      let total = 0;
+      carrinho.forEach((item, i) => {
+        total += item.preco;
+        const li = document.createElement("li");
+        li.innerHTML = `${item.nome} - R$ ${item.preco.toFixed(2)} 
+        <button onclick="removerItem(${i})">❌</button>`;
+        listaCarrinho.appendChild(li);
+      });
+      totalCarrinho.innerHTML = `<strong>Total:</strong> R$ ${total.toFixed(2)}`;
+    }
+
+    function removerItem(index) {
+      carrinho.splice(index, 1);
+      atualizarCarrinho();
+    }
+
+    function limparCarrinho() {
+      carrinho.length = 0;
+      atualizarCarrinho();
+    }
+
+    function abrirCarrinho() {
+      modalCarrinho.style.display = "flex";
+    }
+
+    function fecharCarrinho() {
+      modalCarrinho.style.display = "none";
+      mensagemFinalizar.style.display = "none";
+    }
+
+    function finalizarCompra() {
+      if (carrinho.length === 0) {
+        alert("Seu carrinho está vazio!");
+        return;
+      }
+      mensagemFinalizar.style.display = "block";
+      setTimeout(() => {
+        mensagemFinalizar.style.display = "none";
+        limparCarrinho();
+        fecharCarrinho();
+        alert("🎉 Obrigado pela sua compra! Seu pedido foi confirmado.");
+      }, 2000);
+    }
+  </script>
+
+  <footer>
+    <p>&copy; 2025 G.M.K - Todos os direitos reservados</p>
+    <a href="https://www.instagram.com/___g.m.k?igsh=ZmVtdHR3Z3ZmNXpy" 
+       target="_blank" 
+       style="color: white; text-decoration: none;">
+       clique para ir ao nosso instagram
+    </a>
+  </footer>
+</body>
+</html>
