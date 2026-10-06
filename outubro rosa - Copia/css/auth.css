@@ -1,0 +1,208 @@
+.auth-page {
+
+    min-height: 100vh;
+
+    display: grid;
+
+    grid-template-columns: 1fr 1fr;
+
+    background:
+
+        radial-gradient(
+            circle at 20% 50%,
+            rgba(255,79,145,.15),
+            transparent 30%
+        );
+}
+
+
+.auth-decoration {
+
+    display: flex;
+
+    flex-direction: column;
+
+    justify-content: center;
+
+    padding: 10%;
+
+    border-right: 1px solid var(--border);
+}
+
+
+.auth-decoration h1 {
+
+    font-size: clamp(40px,5vw,65px);
+
+    line-height: 1.05;
+
+    letter-spacing: -3px;
+
+    margin-top: 80px;
+
+    max-width: 550px;
+}
+
+
+.auth-decoration h1 span {
+
+    display: block;
+
+    background: linear-gradient(
+        90deg,
+        var(--pink),
+        var(--orange)
+    );
+
+    -webkit-background-clip: text;
+
+    color: transparent;
+}
+
+
+.auth-decoration p {
+
+    color: var(--gray);
+
+    max-width: 500px;
+
+    margin-top: 25px;
+}
+
+
+.auth-box {
+
+    width: min(480px, 90%);
+
+    margin: auto;
+}
+
+
+.back {
+
+    color: var(--gray);
+
+    font-size: 14px;
+
+    display: inline-block;
+
+    margin-bottom: 40px;
+}
+
+
+.auth-box h2 {
+
+    font-size: 35px;
+
+    margin-bottom: 5px;
+}
+
+
+.auth-subtitle {
+
+    color: var(--gray);
+
+    margin-bottom: 30px;
+}
+
+
+.auth-box form {
+
+    display: flex;
+
+    flex-direction: column;
+
+    gap: 8px;
+}
+
+
+.auth-box label {
+
+    margin-top: 10px;
+
+    font-size: 13px;
+
+    font-weight: 600;
+}
+
+
+.auth-box input {
+
+    width: 100%;
+
+    padding: 14px 15px;
+
+    border-radius: 9px;
+
+    border: 1px solid var(--border);
+
+    background: #161620;
+
+    color: white;
+
+    outline: none;
+
+    font-size: 14px;
+}
+
+
+.auth-box input:focus {
+
+    border-color: var(--pink);
+
+    box-shadow:
+        0 0 0 3px
+        rgba(255,79,145,.1);
+}
+
+
+.full {
+
+    width: 100%;
+
+    border: none;
+
+    cursor: pointer;
+
+    margin-top: 20px;
+}
+
+
+.auth-footer {
+
+    text-align: center;
+
+    color: var(--gray);
+
+    font-size: 13px;
+
+    margin-top: 25px;
+}
+
+
+.auth-footer a {
+
+    color: var(--pink);
+
+    font-weight: 700;
+}
+
+
+@media(max-width: 800px) {
+
+    .auth-page {
+
+        grid-template-columns: 1fr;
+    }
+
+    .auth-decoration {
+
+        display: none;
+    }
+
+    .auth-box {
+
+        padding: 50px 0;
+    }
+
+}

@@ -1,0 +1,817 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0">
+
+    <title>Conteúdos | RosaMed</title>
+
+    <link rel="stylesheet"
+          href="./css/style.css">
+
+</head>
+
+<body>
+
+<header class="header">
+
+    <a href="index.html"
+       class="logo">
+
+        <span class="logo-icon">
+            ✚
+        </span>
+
+        <span>
+            Rosa<span>Med</span>
+        </span>
+
+    </a>
+
+    <nav>
+
+        <a href="index.html">
+            Início
+        </a>
+
+        <a href="conteudos.html"
+           class="active">
+            Conteúdos
+        </a>
+
+        <a href="questoes.html">
+            Questões
+        </a>
+
+        <a href="calculadora.html">
+            Calculadora
+        </a>
+
+    </nav>
+
+</header>
+
+
+<main class="content-page">
+
+
+    <!-- HERO -->
+
+    <section class="library-hero">
+
+        <div>
+
+            <span class="badge">
+                BIBLIOTECA ROSAMED
+            </span>
+
+            <h1 id="contentTitle">
+                Aulas médicas
+            </h1>
+
+            <p id="contentDescription">
+                Conteúdos organizados para facilitar sua aprendizagem.
+            </p>
+
+        </div>
+
+
+        <div class="library-info">
+
+            <strong id="contentCount">
+                04
+            </strong>
+
+            <span>
+                materiais disponíveis
+            </span>
+
+        </div>
+
+    </section>
+
+
+    <!-- CATEGORIAS -->
+
+    <section class="content-categories">
+
+        <a href="conteudos.html?tipo=aulas"
+           data-category="aulas">
+
+            📚
+
+            <span>
+                Aulas
+            </span>
+
+        </a>
+
+
+        <a href="conteudos.html?tipo=noticias"
+           data-category="noticias">
+
+            📰
+
+            <span>
+                Notícias
+            </span>
+
+        </a>
+
+
+        <a href="conteudos.html?tipo=mapas"
+           data-category="mapas">
+
+            🧠
+
+            <span>
+                Mapas mentais
+            </span>
+
+        </a>
+
+
+        <a href="conteudos.html?tipo=resumos"
+           data-category="resumos">
+
+            📝
+
+            <span>
+                Resumos
+            </span>
+
+        </a>
+
+
+        <a href="conteudos.html?tipo=casos"
+           data-category="casos">
+
+            🩺
+
+            <span>
+                Casos clínicos
+            </span>
+
+        </a>
+
+
+        <!-- FLASHCARDS - NÃO ALTERADO -->
+
+        <a href="conteudos.html?tipo=flashcards"
+           data-category="flashcards">
+
+            ⚡
+
+            <span>
+                Flashcards
+            </span>
+
+        </a>
+
+
+        <!-- VÍDEOS - NÃO ALTERADO -->
+
+        <a href="conteudos.html?tipo=videos"
+           data-category="videos">
+
+            🎥
+
+            <span>
+                Vídeos
+            </span>
+
+        </a>
+
+
+        <a href="conteudos.html?tipo=protocolos"
+           data-category="protocolos">
+
+            📑
+
+            <span>
+                Protocolos
+            </span>
+
+        </a>
+
+
+        <a href="conteudos.html?tipo=artigos"
+           data-category="artigos">
+
+            🔬
+
+            <span>
+                Artigos
+            </span>
+
+        </a>
+
+    </section>
+
+
+    <!-- ÁREA DE CONTEÚDOS -->
+
+    <section class="content-library">
+
+        <div class="library-heading">
+
+            <div>
+
+                <span class="badge">
+                    CONTEÚDOS
+                </span>
+
+                <h2>
+                    Explore e estude
+                </h2>
+
+            </div>
+
+            <span id="contentTypeLabel"
+                  class="content-type-label">
+
+                AULAS
+
+            </span>
+
+        </div>
+
+
+        <div id="contentArea"
+             class="content-area">
+
+        </div>
+
+    </section>
+
+</main>
+
+
+<script>
+
+const data = {
+
+    aulas: {
+
+        title: "Aulas médicas",
+
+        description:
+            "Conteúdos organizados para facilitar sua aprendizagem.",
+
+        icon: "📚",
+
+        color: "pink",
+
+        link: "aulas.html",
+
+        items: [
+
+            [
+                "Anatomia e Fisiologia da Mama",
+                "Estudo sobre anatomia, estruturas mamárias, drenagem linfática e fisiologia."
+            ],
+
+            [
+                "Fisiopatologia do Câncer de Mama",
+                "Conceitos sobre desenvolvimento, classificação e características do câncer de mama."
+            ],
+
+            [
+                "Exame Clínico das Mamas",
+                "Estudo da inspeção, palpação e avaliação clínica das mamas."
+            ],
+
+            [
+                "Saúde da Mulher",
+                "Abordagem geral sobre prevenção, rastreamento e cuidados relacionados à saúde da mulher."
+            ]
+
+        ]
+
+    },
+
+
+    noticias: {
+
+        title: "Notícias",
+
+        description:
+            "Atualizações científicas e informações relacionadas à saúde da mulher.",
+
+        icon: "📰",
+
+        color: "orange",
+
+        link: "noticias.html",
+
+        items: [
+
+            [
+                "Novidades sobre câncer de mama",
+                "Atualizações e descobertas relevantes na área."
+            ],
+
+            [
+                "Atualizações em rastreamento",
+                "Mudanças e discussões relacionadas ao rastreamento."
+            ],
+
+            [
+                "Pesquisas recentes",
+                "Resultados de pesquisas e avanços científicos."
+            ]
+
+        ]
+
+    },
+
+
+    mapas: {
+
+        title: "Mapas mentais",
+
+        description:
+            "Esquemas visuais para facilitar a revisão dos principais conceitos.",
+
+        icon: "🧠",
+
+        color: "yellow",
+
+        link: "mapas.html",
+
+        items: [
+
+            [
+                "Câncer de Mama",
+                "Fatores de risco → rastreamento → diagnóstico → tratamento."
+            ],
+
+            [
+                "Nódulo Mamário",
+                "Avaliação clínica → exames → classificação → conduta."
+            ],
+
+            [
+                "BI-RADS",
+                "Resumo visual das categorias e seus significados."
+            ]
+
+        ]
+
+    },
+
+
+    resumos: {
+
+        title: "Resumos",
+
+        description:
+            "Revisões rápidas para facilitar sua preparação.",
+
+        icon: "📝",
+
+        color: "pink",
+
+        link: "resumos.html",
+
+        items: [
+
+            [
+                "Outubro Rosa",
+                "Resumo dos principais conceitos relacionados à campanha."
+            ],
+
+            [
+                "Câncer de Mama",
+                "Revisão dos principais conceitos."
+            ],
+
+            [
+                "Diagnóstico",
+                "Resumo sobre investigação e diagnóstico."
+            ]
+
+        ]
+
+    },
+
+
+    casos: {
+
+        title: "Casos clínicos",
+
+        description:
+            "Casos para desenvolver raciocínio e interpretação clínica.",
+
+        icon: "🩺",
+
+        color: "orange",
+
+        link: "casos.html",
+
+        items: [
+
+            [
+                "Caso 01",
+                "Paciente com nódulo mamário palpável."
+            ],
+
+            [
+                "Caso 02",
+                "Alteração encontrada durante exame de imagem."
+            ],
+
+            [
+                "Caso 03",
+                "Paciente em investigação de alteração mamária."
+            ]
+
+        ]
+
+    },
+
+
+    flashcards: {
+
+        title: "Flashcards",
+
+        description:
+            "Teste sua memória e revise conceitos rapidamente.",
+
+        icon: "⚡",
+
+        color: "yellow",
+
+        items: [
+
+            [
+                "O que é o Outubro Rosa?",
+                "Campanha de conscientização relacionada principalmente ao câncer de mama."
+            ],
+
+            [
+                "O que é rastreamento?",
+                "Estratégia de identificação de doenças em determinados grupos antes do aparecimento de sintomas."
+            ],
+
+            [
+                "O que significa BI-RADS?",
+                "Breast Imaging Reporting and Data System."
+            ],
+
+            [
+                "O que é um fator de risco?",
+                "Característica associada a uma maior probabilidade de desenvolver determinada doença."
+            ]
+
+        ]
+
+    },
+
+
+    videos: {
+
+        title: "Vídeos",
+
+        description:
+            "Materiais audiovisuais para complementar seus estudos.",
+
+        icon: "🎥",
+
+        color: "pink",
+
+        items: [
+
+            [
+                "Aula de saúde da mulher",
+                "Conteúdo educacional para complementar seus estudos."
+            ],
+
+            [
+                "Revisão sobre câncer de mama",
+                "Aulas e revisões sobre o tema."
+            ],
+
+            [
+                "Outubro Rosa",
+                "Materiais audiovisuais relacionados ao tema."
+            ]
+
+        ]
+
+    },
+
+
+    protocolos: {
+
+        title: "Protocolos",
+
+        description:
+            "Materiais de referência para estudo e revisão.",
+
+        icon: "📑",
+
+        color: "orange",
+
+        link: "protocolos.html",
+
+        items: [
+
+            [
+                "Rastreamento",
+                "Revisão das recomendações e estratégias de rastreamento."
+            ],
+
+            [
+                "Investigação",
+                "Fluxo geral para investigação de alterações mamárias."
+            ],
+
+            [
+                "Prevenção",
+                "Revisão das estratégias preventivas."
+            ]
+
+        ]
+
+    },
+
+
+    artigos: {
+
+        title: "Artigos científicos",
+
+        description:
+            "Materiais para aprofundamento acadêmico.",
+
+        icon: "🔬",
+
+        color: "yellow",
+
+        link: "artigos.html",
+
+        items: [
+
+            [
+                "Epidemiologia",
+                "Estudo sobre incidência e mortalidade."
+            ],
+
+            [
+                "Diagnóstico",
+                "Pesquisas relacionadas ao diagnóstico."
+            ],
+
+            [
+                "Medicina baseada em evidências",
+                "Aprofundamento científico sobre o tema."
+            ]
+
+        ]
+
+    }
+
+};
+
+
+const params =
+    new URLSearchParams(window.location.search);
+
+const type =
+    params.get("tipo") || "aulas";
+
+const selected =
+    data[type] || data.aulas;
+
+
+document.getElementById("contentTitle")
+    .textContent = selected.title;
+
+
+document.getElementById("contentDescription")
+    .textContent = selected.description;
+
+
+document.getElementById("contentCount")
+    .textContent =
+        String(selected.items.length)
+            .padStart(2, "0");
+
+
+document.getElementById("contentTypeLabel")
+    .textContent =
+        selected.title.toUpperCase();
+
+
+document
+    .querySelectorAll(".content-categories a")
+    .forEach(link => {
+
+        if (
+            link.dataset.category === type
+        ) {
+
+            link.classList.add("active");
+
+        }
+
+    });
+
+
+const area =
+    document.getElementById("contentArea");
+
+
+selected.items.forEach(
+    (item, index) => {
+
+        const card =
+            document.createElement("article");
+
+
+        card.className =
+            `content-item ${selected.color}`;
+
+
+        /*
+         * FLASHCARDS
+         * Continua funcionando normalmente.
+         */
+
+        if (type === "flashcards") {
+
+            card.innerHTML = `
+
+                <button
+                    class="flashcard"
+                    onclick="flipCard(this)"
+                    type="button">
+
+                    <span class="card-icon">
+                        ${selected.icon}
+                    </span>
+
+                    <small>
+                        FLASHCARD
+                        ${String(index + 1).padStart(2, "0")}
+                    </small>
+
+                    <strong>
+                        ${item[0]}
+                    </strong>
+
+                    <span class="flashcard-hint">
+                        Clique para revelar a resposta
+                    </span>
+
+                    <p>
+                        ${item[1]}
+                    </p>
+
+                </button>
+
+            `;
+
+        }
+
+
+        /*
+         * VÍDEOS
+         * Continua funcionando normalmente.
+         */
+
+        else if (type === "videos") {
+
+            card.innerHTML = `
+
+                <div class="content-card-body">
+
+                    <span class="card-icon">
+                        ${selected.icon}
+                    </span>
+
+                    <div>
+
+                        <small>
+                            VÍDEO
+                            ${String(index + 1).padStart(2, "0")}
+                        </small>
+
+                        <h3>
+                            ${item[0]}
+                        </h3>
+
+                        <p>
+                            ${item[1]}
+                        </p>
+
+                    </div>
+
+                </div>
+
+
+                <button
+                    class="btn-primary"
+                    type="button"
+                    onclick="searchVideo('${item[0]}')">
+
+                    Assistir →
+
+                </button>
+
+            `;
+
+        }
+
+
+        /*
+         * TODAS AS OUTRAS CATEGORIAS
+         */
+
+        else {
+
+            card.innerHTML = `
+
+                <div class="content-card-body">
+
+                    <span class="card-icon">
+                        ${selected.icon}
+                    </span>
+
+                    <div>
+
+                        <small>
+                            ${String(index + 1).padStart(2, "0")}
+                        </small>
+
+                        <h3>
+                            ${item[0]}
+                        </h3>
+
+                        <p>
+                            ${item[1]}
+                        </p>
+
+                    </div>
+
+                </div>
+
+
+                <button
+                    class="btn-outline"
+                    type="button"
+                    onclick="openContent('${selected.link}')">
+
+                    Estudar →
+
+                </button>
+
+            `;
+
+        }
+
+
+        area.appendChild(card);
+
+    }
+);
+
+
+function flipCard(card) {
+
+    card.classList.toggle("revealed");
+
+}
+
+
+function searchVideo(title) {
+
+    const url =
+        "https://www.youtube.com/results?search_query=" +
+        encodeURIComponent(
+            title + " medicina"
+        );
+
+    window.open(
+        url,
+        "_blank"
+    );
+
+}
+
+
+function openContent(url) {
+
+    window.location.href = url;
+
+}
+
+</script>
+
+</body>
+
+</html>

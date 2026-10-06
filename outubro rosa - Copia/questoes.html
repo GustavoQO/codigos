@@ -1,0 +1,2508 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0">
+
+    <title>Questões | RosaMed</title>
+
+    <link rel="stylesheet"
+          href="./css/style.css">
+
+
+    <!-- =========================================================
+         ESTILO ESPECÍFICO DA PÁGINA DE QUESTÕES
+         Não altera a lógica do sistema.
+    ========================================================== -->
+
+    <style>
+
+        /* =========================================================
+           FUNDO
+        ========================================================== */
+
+        body {
+            background:
+                radial-gradient(
+                    circle at 10% 15%,
+                    rgba(246, 184, 205, 0.45),
+                    transparent 28%
+                ),
+                radial-gradient(
+                    circle at 90% 20%,
+                    rgba(255, 226, 122, 0.35),
+                    transparent 25%
+                ),
+                radial-gradient(
+                    circle at 50% 100%,
+                    rgba(242, 140, 69, 0.18),
+                    transparent 35%
+                ),
+                var(--cream);
+
+            color: var(--dark);
+        }
+
+
+        /* =========================================================
+           ESTRUTURA
+        ========================================================== */
+
+        .dashboard-content {
+            width: min(1120px, calc(100% - 40px));
+            margin: 0 auto;
+            padding: 55px 0 80px;
+        }
+
+        .dashboard-content > section {
+            margin-bottom: 50px;
+        }
+
+
+        /* =========================================================
+           CABEÇALHO
+        ========================================================== */
+
+        .dashboard-header {
+            background:
+                linear-gradient(
+                    135deg,
+                    var(--cream),
+                    var(--pink-soft),
+                    var(--orange-soft)
+                );
+
+            border-bottom: 2px solid var(--pink-light);
+
+            box-shadow:
+                0 5px 20px rgba(91, 32, 57, 0.08);
+        }
+
+
+        /* =========================================================
+           TÍTULOS
+        ========================================================== */
+
+        .section-heading {
+            margin-bottom: 25px;
+        }
+
+        .section-heading h1,
+        .section-heading h2,
+        .section-heading h3 {
+            color: var(--dark);
+        }
+
+        .section-heading p {
+            color: var(--dark-soft);
+        }
+
+
+        /* =========================================================
+           TELA DE DIFICULDADE
+        ========================================================== */
+
+        .difficulty-screen {
+            margin-top: 25px;
+        }
+
+        .difficulty-title {
+            margin-bottom: 22px;
+        }
+
+        .difficulty-title h2 {
+            color: var(--dark);
+            margin-bottom: 7px;
+        }
+
+        .difficulty-title p {
+            color: var(--dark-soft);
+        }
+
+        .difficulty-options {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 20px;
+        }
+
+        .difficulty-card {
+            border: 2px solid var(--pink-light);
+            border-radius: 22px;
+
+            padding: 28px;
+
+            text-align: left;
+
+            cursor: pointer;
+
+            color: var(--dark);
+
+            box-shadow: var(--shadow);
+
+            transition:
+                transform 0.2s ease,
+                box-shadow 0.2s ease,
+                border-color 0.2s ease;
+        }
+
+        .difficulty-card:hover {
+            transform: translateY(-5px);
+            box-shadow: var(--shadow-hover);
+            border-color: var(--pink);
+        }
+
+        .difficulty-card.easy {
+            background:
+                linear-gradient(
+                    145deg,
+                    var(--butter),
+                    var(--butter-soft)
+                );
+        }
+
+        .difficulty-card.medium {
+            background:
+                linear-gradient(
+                    145deg,
+                    var(--pink-soft),
+                    var(--white)
+                );
+        }
+
+        .difficulty-card.hard {
+            background:
+                linear-gradient(
+                    145deg,
+                    var(--orange-soft),
+                    var(--white)
+                );
+        }
+
+        .difficulty-icon {
+            display: block;
+            font-size: 2rem;
+            margin-bottom: 15px;
+        }
+
+        .difficulty-label {
+            display: block;
+
+            color: var(--pink-dark);
+
+            font-size: 0.75rem;
+            font-weight: 800;
+
+            letter-spacing: 0.05em;
+
+            margin-bottom: 7px;
+        }
+
+        .difficulty-card h3 {
+            margin-bottom: 10px;
+
+            color: var(--dark);
+
+            font-size: 1.5rem;
+        }
+
+        .difficulty-card p {
+            color: var(--dark-soft);
+
+            line-height: 1.5;
+
+            margin-bottom: 20px;
+        }
+
+        .difficulty-card strong {
+            color: var(--pink-dark);
+        }
+
+
+        /* =========================================================
+           TOPO DO QUIZ
+        ========================================================== */
+
+        .quiz-topbar {
+            display: flex;
+
+            align-items: center;
+            justify-content: space-between;
+
+            gap: 20px;
+
+            margin-bottom: 25px;
+        }
+
+        .quiz-topbar h2 {
+            color: var(--dark);
+            margin-top: 10px;
+        }
+
+
+        /* =========================================================
+           ESTATÍSTICAS
+        ========================================================== */
+
+        .question-stats {
+            display: grid;
+
+            grid-template-columns:
+                repeat(4, 1fr);
+
+            gap: 18px;
+
+            margin-bottom: 22px;
+        }
+
+        .stat-box {
+            background: var(--white);
+
+            border: 2px solid var(--pink-light);
+
+            border-radius: 18px;
+
+            padding: 22px;
+
+            text-align: center;
+
+            box-shadow: var(--shadow);
+
+            transition:
+                transform 0.2s ease,
+                box-shadow 0.2s ease;
+        }
+
+        .stat-box:hover {
+            transform: translateY(-3px);
+            box-shadow: var(--shadow-hover);
+        }
+
+        .stat-box span {
+            display: block;
+
+            color: var(--gray);
+
+            font-size: 0.85rem;
+            font-weight: 700;
+
+            margin-bottom: 8px;
+        }
+
+        .stat-box strong {
+            display: block;
+
+            color: var(--pink-dark);
+
+            font-size: 2rem;
+        }
+
+
+        /* =========================================================
+           PROGRESSO
+        ========================================================== */
+
+        .question-progress {
+            background: var(--white);
+
+            border: 2px solid var(--cream-dark);
+
+            border-radius: 18px;
+
+            padding: 20px 24px;
+
+            margin-bottom: 25px;
+
+            box-shadow: var(--shadow);
+        }
+
+        .question-progress-top {
+            display: flex;
+
+            justify-content: space-between;
+            align-items: center;
+
+            gap: 20px;
+
+            margin-bottom: 12px;
+        }
+
+        .question-progress-top span {
+            font-weight: 700;
+            color: var(--dark-soft);
+        }
+
+        .question-progress-top strong {
+            color: var(--pink-dark);
+        }
+
+        .progress-track {
+            width: 100%;
+
+            height: 12px;
+
+            background: var(--butter-soft);
+
+            border-radius: 999px;
+
+            overflow: hidden;
+        }
+
+        .progress-bar {
+            height: 100%;
+
+            width: 0;
+
+            border-radius: inherit;
+
+            background:
+                linear-gradient(
+                    90deg,
+                    var(--pink),
+                    var(--orange)
+                );
+
+            transition: width 0.3s ease;
+        }
+
+
+        /* =========================================================
+           CARD DA QUESTÃO
+        ========================================================== */
+
+        .question-card {
+            background:
+                linear-gradient(
+                    145deg,
+                    var(--white),
+                    var(--cream)
+                );
+
+            border: 2px solid var(--pink-light);
+
+            border-radius: 24px;
+
+            padding: 35px;
+
+            box-shadow: var(--shadow);
+        }
+
+        .question-meta {
+            display: flex;
+
+            flex-wrap: wrap;
+
+            gap: 10px;
+
+            margin-bottom: 22px;
+        }
+
+        .question-tag {
+            display: inline-flex;
+
+            align-items: center;
+            justify-content: center;
+
+            padding: 7px 14px;
+
+            border-radius: 999px;
+
+            font-size: 0.75rem;
+
+            font-weight: 800;
+
+            letter-spacing: 0.03em;
+        }
+
+        .question-tag.pink {
+            color: var(--white);
+
+            background:
+                linear-gradient(
+                    135deg,
+                    var(--pink),
+                    var(--pink-dark)
+                );
+        }
+
+        .question-tag.yellow {
+            color: var(--dark);
+
+            background:
+                linear-gradient(
+                    135deg,
+                    var(--butter),
+                    var(--orange-light)
+                );
+        }
+
+        .question-card > h2 {
+            color: var(--dark);
+
+            line-height: 1.45;
+
+            margin-bottom: 28px;
+        }
+
+
+        /* =========================================================
+           RESPOSTAS
+        ========================================================== */
+
+        .answers {
+            display: grid;
+            gap: 14px;
+        }
+
+        .answers button {
+            width: 100%;
+
+            padding: 18px 20px;
+
+            background: var(--white);
+
+            color: var(--dark);
+
+            border: 2px solid var(--pink-light);
+
+            border-radius: 14px;
+
+            text-align: left;
+
+            font-size: 1rem;
+            font-weight: 600;
+
+            cursor: pointer;
+
+            transition:
+                background 0.2s ease,
+                border-color 0.2s ease,
+                transform 0.2s ease,
+                box-shadow 0.2s ease;
+        }
+
+        .answers button:hover {
+            background: var(--pink-soft);
+
+            border-color: var(--pink);
+
+            transform: translateX(4px);
+
+            box-shadow:
+                0 8px 20px
+                rgba(232, 63, 120, 0.12);
+        }
+
+
+        /* =========================================================
+           RESULTADO
+        ========================================================== */
+
+        .question-result {
+            margin-top: 20px;
+
+            padding: 18px 20px;
+
+            border-radius: 14px;
+
+            background: var(--pink-soft);
+
+            border: 2px solid var(--pink-light);
+
+            color: var(--pink-dark);
+
+            font-weight: 600;
+        }
+
+
+        /* =========================================================
+           RECOMENDAÇÃO
+        ========================================================== */
+
+        .study-recommendation {
+            display: flex;
+
+            align-items: center;
+
+            gap: 16px;
+
+            margin-top: 22px;
+
+            padding: 18px;
+
+            background:
+                linear-gradient(
+                    135deg,
+                    var(--pink-soft),
+                    var(--orange-soft)
+                );
+
+            border: 2px solid var(--orange-light);
+
+            border-radius: 16px;
+        }
+
+        .study-recommendation-icon {
+            flex-shrink: 0;
+
+            width: 48px;
+            height: 48px;
+
+            display: flex;
+
+            align-items: center;
+            justify-content: center;
+
+            border-radius: 14px;
+
+            background:
+                linear-gradient(
+                    135deg,
+                    var(--pink),
+                    var(--orange)
+                );
+
+            color: var(--white);
+
+            font-size: 1.4rem;
+        }
+
+        .study-recommendation strong {
+            color: var(--pink-dark);
+        }
+
+        .study-recommendation p {
+            margin-top: 4px;
+
+            color: var(--dark-soft);
+        }
+
+
+        /* =========================================================
+           HISTÓRICO
+        ========================================================== */
+
+        .history-box {
+            background:
+                linear-gradient(
+                    135deg,
+                    var(--butter-soft),
+                    var(--orange-soft)
+                );
+
+            border: 2px solid var(--butter-dark);
+
+            border-radius: 24px;
+
+            padding: 35px;
+
+            box-shadow: var(--shadow);
+        }
+
+        .history-box .section-heading {
+            margin-bottom: 25px;
+        }
+
+
+        /* =========================================================
+           DESEMPENHO
+        ========================================================== */
+
+        .performance-grid {
+            display: grid;
+
+            grid-template-columns:
+                repeat(3, 1fr);
+
+            gap: 18px;
+
+            margin-bottom: 25px;
+        }
+
+        .performance-card {
+            display: flex;
+
+            align-items: center;
+
+            gap: 15px;
+
+            background:
+                rgba(255, 255, 255, 0.88);
+
+            border: 2px solid var(--cream-dark);
+
+            border-radius: 18px;
+
+            padding: 20px;
+
+            box-shadow:
+                0 8px 25px
+                rgba(91, 32, 57, 0.08);
+        }
+
+        .performance-icon {
+            flex-shrink: 0;
+
+            width: 52px;
+            height: 52px;
+
+            display: flex;
+
+            align-items: center;
+            justify-content: center;
+
+            border-radius: 15px;
+
+            background:
+                linear-gradient(
+                    135deg,
+                    var(--pink-soft),
+                    var(--orange-soft)
+                );
+
+            font-size: 1.5rem;
+        }
+
+        .performance-card strong {
+            display: block;
+
+            color: var(--dark);
+
+            margin-bottom: 5px;
+        }
+
+        .performance-card p {
+            color: var(--dark-soft);
+
+            margin: 0;
+
+            line-height: 1.4;
+        }
+
+
+        /* =========================================================
+           DESEMPENHO POR ASSUNTO
+        ========================================================== */
+
+        .topic-performance {
+            background:
+                rgba(255, 255, 255, 0.82);
+
+            border: 2px solid var(--cream-dark);
+
+            border-radius: 18px;
+
+            padding: 25px;
+
+            margin-top: 20px;
+        }
+
+        .topic-performance .section-heading {
+            margin-bottom: 15px;
+        }
+
+        .topic-list {
+            color: var(--dark-soft);
+        }
+
+
+        /* =========================================================
+           RECURSOS DE ESTUDO
+        ========================================================== */
+
+        .study-section {
+            margin-top: 10px;
+        }
+
+        .study-options {
+            display: grid;
+
+            grid-template-columns:
+                repeat(3, 1fr);
+
+            gap: 20px;
+        }
+
+        .study-option {
+            position: relative;
+
+            min-height: 290px;
+
+            display: flex;
+
+            flex-direction: column;
+
+            padding: 28px;
+
+            border-radius: 22px;
+
+            box-shadow: var(--shadow);
+
+            overflow: hidden;
+
+            transition:
+                transform 0.2s ease,
+                box-shadow 0.2s ease;
+        }
+
+        .study-option:hover {
+            transform: translateY(-5px);
+
+            box-shadow: var(--shadow-hover);
+        }
+
+        .study-option.pink {
+            background:
+                linear-gradient(
+                    145deg,
+                    var(--pink),
+                    var(--pink-dark)
+                );
+
+            color: var(--white);
+        }
+
+        .study-option.yellow {
+            background:
+                linear-gradient(
+                    145deg,
+                    var(--butter),
+                    var(--orange-light)
+                );
+
+            color: var(--dark);
+        }
+
+        .study-option.orange {
+            background:
+                linear-gradient(
+                    145deg,
+                    var(--orange),
+                    var(--orange-dark)
+                );
+
+            color: var(--white);
+        }
+
+        .study-option::after {
+            content: "";
+
+            position: absolute;
+
+            width: 130px;
+            height: 130px;
+
+            border-radius: 50%;
+
+            right: -45px;
+            bottom: -45px;
+
+            background:
+                rgba(255, 255, 255, 0.13);
+        }
+
+        .study-option-icon {
+            font-size: 2rem;
+
+            margin-bottom: 15px;
+        }
+
+        .study-option span {
+            font-size: 0.75rem;
+
+            font-weight: 800;
+
+            letter-spacing: 0.05em;
+
+            opacity: 0.85;
+        }
+
+        .study-option h3 {
+            margin: 7px 0 10px;
+
+            font-size: 1.45rem;
+        }
+
+        .study-option p {
+            line-height: 1.5;
+
+            margin-bottom: 25px;
+
+            opacity: 0.9;
+        }
+
+        .study-option .btn-primary {
+            margin-top: auto;
+
+            align-self: flex-start;
+
+            position: relative;
+
+            z-index: 2;
+        }
+
+
+        /* =========================================================
+           MATERIAL ABERTO
+        ========================================================== */
+
+        .study-content {
+            margin-top: 25px;
+
+            background: var(--white);
+
+            border: 2px solid var(--pink-light);
+
+            border-radius: 22px;
+
+            padding: 28px;
+
+            box-shadow: var(--shadow);
+        }
+
+        .study-content-header {
+            display: flex;
+
+            align-items: center;
+
+            justify-content: space-between;
+
+            gap: 20px;
+
+            padding-bottom: 20px;
+
+            margin-bottom: 20px;
+
+            border-bottom: 2px solid var(--pink-soft);
+        }
+
+        .study-content-body {
+            width: 100%;
+
+            color: var(--dark-soft);
+
+            line-height: 1.7;
+        }
+
+
+        /* =========================================================
+           FLASHCARDS
+        ========================================================== */
+
+        .study-flashcards {
+            display: grid;
+
+            grid-template-columns:
+                repeat(2, 1fr);
+
+            gap: 18px;
+
+            margin-top: 20px;
+        }
+
+        .study-flashcard {
+            width: 100%;
+
+            min-height: 210px;
+
+            padding: 24px;
+
+            border: 2px solid var(--butter);
+
+            border-radius: 20px;
+
+            background:
+                linear-gradient(
+                    145deg,
+                    var(--butter),
+                    var(--butter-soft)
+                );
+
+            color: var(--dark);
+
+            cursor: pointer;
+
+            text-align: left;
+
+            box-shadow:
+                0 8px 22px
+                rgba(91, 32, 57, 0.08);
+
+            transition:
+                transform 0.2s ease,
+                box-shadow 0.2s ease;
+        }
+
+        .study-flashcard:hover {
+            transform: translateY(-4px);
+
+            box-shadow: var(--shadow-hover);
+        }
+
+        .study-flashcard .flashcard-number {
+            display: block;
+
+            margin-bottom: 10px;
+
+            color: var(--orange-dark);
+
+            font-size: 0.75rem;
+
+            font-weight: 800;
+
+            letter-spacing: 0.05em;
+        }
+
+        .study-flashcard .flashcard-question {
+            display: block;
+
+            color: var(--dark);
+
+            font-size: 1.05rem;
+
+            font-weight: 800;
+
+            line-height: 1.4;
+        }
+
+        .study-flashcard .flashcard-hint {
+            display: block;
+
+            margin-top: 16px;
+
+            color: var(--orange-dark);
+
+            font-size: 0.8rem;
+
+            font-weight: 700;
+        }
+
+        /*
+           A RESPOSTA FICA ESCONDIDA
+           ATÉ O USUÁRIO CLICAR.
+        */
+
+        .study-flashcard .flashcard-answer {
+            display: none;
+
+            margin-top: 18px;
+
+            padding-top: 16px;
+
+            border-top:
+                2px solid
+                rgba(201, 159, 24, 0.35);
+
+            color: var(--dark-soft);
+
+            font-size: 0.95rem;
+
+            line-height: 1.6;
+        }
+
+        .study-flashcard.revealed
+        .flashcard-answer {
+            display: block;
+        }
+
+        .study-flashcard.revealed
+        .flashcard-hint {
+            display: none;
+        }
+
+
+        /* =========================================================
+           MAPAS MENTAIS
+        ========================================================== */
+
+        .study-maps {
+            display: grid;
+
+            grid-template-columns:
+                repeat(3, 1fr);
+
+            gap: 20px;
+
+            margin-top: 20px;
+        }
+
+        .study-map {
+            position: relative;
+
+            padding: 25px;
+
+            min-height: 230px;
+
+            border-radius: 20px;
+
+            background:
+                linear-gradient(
+                    145deg,
+                    var(--pink-soft),
+                    var(--orange-soft)
+                );
+
+            border: 2px solid var(--pink-light);
+
+            box-shadow:
+                0 8px 22px
+                rgba(91, 32, 57, 0.08);
+
+            overflow: hidden;
+        }
+
+        .study-map::after {
+            content: "";
+
+            position: absolute;
+
+            width: 100px;
+            height: 100px;
+
+            right: -35px;
+            bottom: -35px;
+
+            border-radius: 50%;
+
+            background:
+                rgba(255, 226, 122, 0.45);
+        }
+
+        .study-map-icon {
+            position: relative;
+
+            z-index: 1;
+
+            width: 52px;
+            height: 52px;
+
+            display: flex;
+
+            align-items: center;
+            justify-content: center;
+
+            margin-bottom: 15px;
+
+            border-radius: 15px;
+
+            background:
+                linear-gradient(
+                    135deg,
+                    var(--pink),
+                    var(--orange)
+                );
+
+            color: var(--white);
+
+            font-size: 1.4rem;
+        }
+
+        .study-map h3 {
+            position: relative;
+
+            z-index: 1;
+
+            margin-bottom: 10px;
+
+            color: var(--dark);
+
+            font-size: 1.1rem;
+        }
+
+        .study-map p {
+            position: relative;
+
+            z-index: 1;
+
+            color: var(--dark-soft);
+
+            line-height: 1.55;
+        }
+
+        .study-map .map-flow {
+            position: relative;
+
+            z-index: 1;
+
+            display: flex;
+
+            flex-wrap: wrap;
+
+            align-items: center;
+
+            gap: 7px;
+
+            margin-top: 18px;
+        }
+
+        .study-map .map-step {
+            padding: 6px 10px;
+
+            border-radius: 999px;
+
+            background: var(--white);
+
+            color: var(--pink-dark);
+
+            font-size: 0.72rem;
+
+            font-weight: 800;
+        }
+
+        .study-map .map-arrow {
+            color: var(--orange-dark);
+
+            font-weight: 900;
+        }
+
+
+        /* =========================================================
+           RESPONSIVIDADE
+        ========================================================== */
+
+        @media (max-width: 900px) {
+
+            .difficulty-options {
+                grid-template-columns: 1fr;
+            }
+
+            .question-stats {
+                grid-template-columns:
+                    repeat(2, 1fr);
+            }
+
+            .performance-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .study-options {
+                grid-template-columns: 1fr;
+            }
+
+            .study-flashcards {
+                grid-template-columns: 1fr;
+            }
+
+            .study-maps {
+                grid-template-columns: 1fr;
+            }
+
+        }
+
+
+        @media (max-width: 600px) {
+
+            .dashboard-content {
+                width:
+                    min(
+                        100% - 24px,
+                        1120px
+                    );
+
+                padding-top: 30px;
+            }
+
+            .quiz-topbar {
+                flex-direction: column;
+
+                align-items: flex-start;
+            }
+
+            .question-card,
+            .history-box {
+                padding: 22px;
+
+                border-radius: 18px;
+            }
+
+            .question-stats {
+                grid-template-columns:
+                    1fr 1fr;
+
+                gap: 10px;
+            }
+
+            .stat-box {
+                padding: 16px 10px;
+            }
+
+            .stat-box strong {
+                font-size: 1.5rem;
+            }
+
+            .question-progress-top {
+                align-items: flex-start;
+            }
+
+            .performance-card {
+                align-items: flex-start;
+            }
+
+            .study-option {
+                min-height: auto;
+            }
+
+            .study-content-header {
+                flex-direction: column;
+
+                align-items: flex-start;
+            }
+
+        }
+
+    </style>
+
+</head>
+
+
+<body>
+
+
+<header class="dashboard-header">
+
+    <a href="index.html"
+       class="logo">
+
+        <span class="logo-icon">
+            ✚
+        </span>
+
+        <span>
+            Rosa<span>Med</span>
+        </span>
+
+    </a>
+
+
+    <a href="index.html"
+       class="btn-outline">
+
+        ← Início
+
+    </a>
+
+</header>
+
+
+
+<main class="dashboard-content rosamed-quiz">
+
+
+    <!-- =====================================================
+         INTRODUÇÃO
+    ====================================================== -->
+
+    <section class="quiz-intro">
+
+        <div class="section-heading">
+
+            <span class="badge">
+                DESAFIO ROSAMED
+            </span>
+
+            <h1>
+                Teste seus conhecimentos
+            </h1>
+
+            <p>
+                Escolha a dificuldade e teste seus conhecimentos
+                sobre Outubro Rosa, câncer de mama, saúde da mulher,
+                prevenção, diagnóstico e casos clínicos.
+            </p>
+
+        </div>
+
+
+        <!-- =================================================
+             SELEÇÃO DE DIFICULDADE
+        ================================================== -->
+
+        <div id="difficultyScreen"
+             class="difficulty-screen">
+
+
+            <div class="difficulty-title">
+
+                <h2>
+                    Qual desafio você quer enfrentar?
+                </h2>
+
+                <p>
+                    As perguntas mudam de acordo com o nível
+                    escolhido.
+                </p>
+
+            </div>
+
+
+            <div class="difficulty-options">
+
+
+                <!-- FÁCIL -->
+
+                <button class="difficulty-card easy"
+                        onclick="startQuiz('FÁCIL')">
+
+                    <span class="difficulty-icon">
+                        🌱
+                    </span>
+
+                    <span class="difficulty-label">
+                        NÍVEL 01
+                    </span>
+
+                    <h3>
+                        Fácil
+                    </h3>
+
+                    <p>
+                        Conceitos básicos, Outubro Rosa,
+                        prevenção e conhecimentos gerais.
+                    </p>
+
+                    <strong>
+                        Começar →
+                    </strong>
+
+                </button>
+
+
+                <!-- MÉDIO -->
+
+                <button class="difficulty-card medium"
+                        onclick="startQuiz('MÉDIO')">
+
+                    <span class="difficulty-icon">
+                        🧠
+                    </span>
+
+                    <span class="difficulty-label">
+                        NÍVEL 02
+                    </span>
+
+                    <h3>
+                        Médio
+                    </h3>
+
+                    <p>
+                        Conceitos técnicos, fatores de risco,
+                        rastreamento e diagnóstico.
+                    </p>
+
+                    <strong>
+                        Começar →
+                    </strong>
+
+                </button>
+
+
+                <!-- DIFÍCIL -->
+
+                <button class="difficulty-card hard"
+                        onclick="startQuiz('DIFÍCIL')">
+
+                    <span class="difficulty-icon">
+                        🩺
+                    </span>
+
+                    <span class="difficulty-label">
+                        NÍVEL 03
+                    </span>
+
+                    <h3>
+                        Difícil
+                    </h3>
+
+                    <p>
+                        Casos clínicos, raciocínio médico,
+                        diagnóstico e situações mais complexas.
+                    </p>
+
+                    <strong>
+                        Começar →
+                    </strong>
+
+                </button>
+
+
+            </div>
+
+        </div>
+
+    </section>
+
+
+
+    <!-- =====================================================
+         QUIZ
+    ====================================================== -->
+
+    <section id="quizScreen"
+             class="quiz-screen"
+             style="display:none;">
+
+
+        <!-- Cabeçalho -->
+
+        <div class="quiz-topbar">
+
+            <div>
+
+                <span id="questionNumber"
+                      class="badge">
+
+                    QUESTÃO 01
+
+                </span>
+
+                <h2>
+                    Desafio RosaMed
+                </h2>
+
+            </div>
+
+
+            <button class="btn-outline"
+                    onclick="backToDifficulty()">
+
+                ← Trocar dificuldade
+
+            </button>
+
+        </div>
+
+
+
+        <!-- Estatísticas -->
+
+        <div class="question-stats">
+
+            <div class="stat-box">
+
+                <span>
+                    Respondidas
+                </span>
+
+                <strong id="statAnswered">
+                    0
+                </strong>
+
+            </div>
+
+
+            <div class="stat-box">
+
+                <span>
+                    Acertos
+                </span>
+
+                <strong id="statCorrect">
+                    0
+                </strong>
+
+            </div>
+
+
+            <div class="stat-box">
+
+                <span>
+                    Erros
+                </span>
+
+                <strong id="statWrong">
+                    0
+                </strong>
+
+            </div>
+
+
+            <div class="stat-box">
+
+                <span>
+                    Aproveitamento
+                </span>
+
+                <strong id="statAccuracy">
+                    0%
+                </strong>
+
+            </div>
+
+        </div>
+
+
+
+        <!-- Barra de progresso -->
+
+        <div class="question-progress">
+
+            <div class="question-progress-top">
+
+                <span>
+                    Progresso
+                </span>
+
+                <strong id="progressText">
+                    1 / 10
+                </strong>
+
+            </div>
+
+
+            <div class="progress-track">
+
+                <div id="progressBar"
+                     class="progress-bar">
+                </div>
+
+            </div>
+
+        </div>
+
+
+
+        <!-- CARD DA QUESTÃO -->
+
+        <div class="question-card">
+
+
+            <div class="question-meta">
+
+                <span id="questionCategory"
+                      class="question-tag pink">
+
+                    CONHECIMENTOS
+
+                </span>
+
+
+                <span id="questionDifficulty"
+                      class="question-tag yellow">
+
+                    FÁCIL
+
+                </span>
+
+            </div>
+
+
+            <h2 id="questionText">
+
+                Carregando questão...
+
+            </h2>
+
+
+            <div id="answers"
+                 class="answers">
+            </div>
+
+
+            <div id="questionResult"
+                 class="question-result">
+            </div>
+
+
+            <!-- Recomendação -->
+
+            <div id="studyRecommendation"
+                 class="study-recommendation"
+                 style="display:none;">
+
+                <div class="study-recommendation-icon">
+                    📚
+                </div>
+
+                <div>
+
+                    <strong>
+                        Ponto para revisar
+                    </strong>
+
+                    <p id="studyRecommendationText">
+                    </p>
+
+                </div>
+
+            </div>
+
+
+            <button id="nextQuestion"
+                    class="btn-primary"
+                    onclick="nextQuestion()"
+                    style="display:none; margin-top:20px;">
+
+                Próxima questão →
+
+            </button>
+
+
+        </div>
+
+    </section>
+
+
+
+    <!-- =====================================================
+         HISTÓRICO
+    ====================================================== -->
+
+    <section class="history-box">
+
+        <div class="section-heading">
+
+            <span class="badge">
+                SEU DESEMPENHO
+            </span>
+
+            <h2>
+                Seu histórico de aprendizagem
+            </h2>
+
+            <p>
+                Veja quais assuntos você domina e quais
+                precisam de mais revisão.
+            </p>
+
+        </div>
+
+
+        <div class="performance-grid">
+
+
+            <div class="performance-card">
+
+                <span class="performance-icon">
+                    🎯
+                </span>
+
+                <div>
+
+                    <strong>
+                        Melhor desempenho
+                    </strong>
+
+                    <p id="bestTopic">
+                        Ainda não há dados suficientes.
+                    </p>
+
+                </div>
+
+            </div>
+
+
+            <div class="performance-card">
+
+                <span class="performance-icon">
+                    📖
+                </span>
+
+                <div>
+
+                    <strong>
+                        Precisa revisar
+                    </strong>
+
+                    <p id="weakTopic">
+                        Responda algumas questões.
+                    </p>
+
+                </div>
+
+            </div>
+
+
+            <div class="performance-card">
+
+                <span class="performance-icon">
+                    🔥
+                </span>
+
+                <div>
+
+                    <strong>
+                        Sequência atual
+                    </strong>
+
+                    <p id="streak">
+                        0 acertos consecutivos
+                    </p>
+
+                </div>
+
+            </div>
+
+        </div>
+
+
+
+        <!-- Desempenho por assunto -->
+
+        <div class="topic-performance">
+
+            <div class="section-heading">
+
+                <span class="badge">
+                    POR ASSUNTO
+                </span>
+
+                <h3>
+                    Onde você está tendo mais dificuldade?
+                </h3>
+
+            </div>
+
+
+            <div id="topicList"
+                 class="topic-list">
+
+                <p>
+                    Responda algumas questões para visualizar
+                    seu desempenho.
+                </p>
+
+            </div>
+
+        </div>
+
+
+        <button id="reviewWrong"
+                class="btn-outline"
+                onclick="reviewWrongQuestions()"
+                style="display:none; margin-top:20px;">
+
+            🔄 Revisar questões que errei
+
+        </button>
+
+    </section>
+
+
+
+    <!-- =====================================================
+         RECURSOS DE ESTUDO
+    ====================================================== -->
+
+    <section class="study-section">
+
+
+        <div class="section-heading">
+
+            <span class="badge">
+                CONTINUE ESTUDANDO
+            </span>
+
+            <h2>
+                Reforce seus conhecimentos
+            </h2>
+
+            <p>
+                Escolha uma forma de estudo para aprofundar
+                os assuntos do desafio.
+            </p>
+
+        </div>
+
+
+
+        <div class="study-options">
+
+
+            <!-- FLASHCARDS -->
+
+            <article class="study-option pink">
+
+                <div class="study-option-icon">
+                    ⚡
+                </div>
+
+                <span>
+                    REVISÃO RÁPIDA
+                </span>
+
+                <h3>
+                    Flashcards
+                </h3>
+
+                <p>
+                    Revise conceitos importantes através
+                    de perguntas e respostas.
+                </p>
+
+                <button class="btn-primary"
+                        onclick="openStudy('flashcards')">
+
+                    Estudar →
+
+                </button>
+
+            </article>
+
+
+
+            <!-- MAPAS -->
+
+            <article class="study-option yellow">
+
+                <div class="study-option-icon">
+                    🧠
+                </div>
+
+                <span>
+                    REVISÃO VISUAL
+                </span>
+
+                <h3>
+                    Mapas mentais
+                </h3>
+
+                <p>
+                    Organize visualmente fatores de risco,
+                    prevenção, investigação e diagnóstico.
+                </p>
+
+                <button class="btn-primary"
+                        onclick="openStudy('mapas')">
+
+                    Estudar →
+
+                </button>
+
+            </article>
+
+
+
+            <!-- VÍDEOS -->
+
+            <article class="study-option orange">
+
+                <div class="study-option-icon">
+                    🎥
+                </div>
+
+                <span>
+                    APRENDIZAGEM AUDIOVISUAL
+                </span>
+
+                <h3>
+                    Vídeos
+                </h3>
+
+                <p>
+                    Encontre vídeos para complementar sua
+                    revisão sobre os temas estudados.
+                </p>
+
+                <button class="btn-primary"
+                        onclick="openStudy('videos')">
+
+                    Assistir →
+
+                </button>
+
+            </article>
+
+
+        </div>
+
+
+
+        <!-- Conteúdo aberto -->
+
+        <div id="studyContent"
+             class="study-content"
+             style="display:none;">
+
+
+            <div class="study-content-header">
+
+                <div>
+
+                    <span id="studyContentBadge"
+                          class="badge">
+
+                        MATERIAL
+
+                    </span>
+
+                    <h2 id="studyContentTitle">
+                    </h2>
+
+                </div>
+
+
+                <button class="btn-outline"
+                        onclick="closeStudy()">
+
+                    Fechar ×
+
+                </button>
+
+            </div>
+
+
+            <div id="studyContentBody"
+                 class="study-content-body">
+            </div>
+
+
+        </div>
+
+    </section>
+
+
+</main>
+
+
+
+<!-- =========================================================
+     JAVASCRIPT ORIGINAL
+========================================================== -->
+
+<script src="./js/questoes.js"></script>
+
+
+
+<!-- =========================================================
+     CORREÇÃO DOS FLASHCARDS E MAPAS
+     
+     O questoes.js continua intacto.
+     Guardamos a função original para que vídeos e qualquer
+     outro recurso continuem funcionando como antes.
+========================================================== -->
+
+<script>
+
+    const originalOpenStudy =
+        window.openStudy;
+
+    const originalCloseStudy =
+        window.closeStudy;
+
+
+    /* =====================================================
+       ABRIR MATERIAL
+    ====================================================== */
+
+    window.openStudy = function(type) {
+
+        const studyContent =
+            document.getElementById("studyContent");
+
+        const studyContentTitle =
+            document.getElementById("studyContentTitle");
+
+        const studyContentBadge =
+            document.getElementById("studyContentBadge");
+
+        const studyContentBody =
+            document.getElementById("studyContentBody");
+
+
+        if (
+            !studyContent ||
+            !studyContentTitle ||
+            !studyContentBody
+        ) {
+            return;
+        }
+
+
+        /* =================================================
+           FLASHCARDS
+        ================================================== */
+
+        if (type === "flashcards") {
+
+            studyContentBadge.textContent =
+                "REVISÃO RÁPIDA";
+
+            studyContentTitle.textContent =
+                "Flashcards";
+
+
+            studyContentBody.innerHTML = `
+
+                <p style="
+                    margin-bottom:20px;
+                    color:var(--dark-soft);
+                ">
+                    Clique em um cartão para revelar a resposta.
+                </p>
+
+
+                <div class="study-flashcards">
+
+
+                    <button
+                        class="study-flashcard"
+                        type="button"
+                        onclick="toggleStudyFlashcard(this)">
+
+                        <span class="flashcard-number">
+                            FLASHCARD 01
+                        </span>
+
+                        <span class="flashcard-question">
+                            O que é o Outubro Rosa?
+                        </span>
+
+                        <span class="flashcard-hint">
+                            Clique para revelar a resposta →
+                        </span>
+
+                        <span class="flashcard-answer">
+                            Campanha de conscientização sobre
+                            prevenção, diagnóstico precoce e
+                            cuidados relacionados ao câncer de mama.
+                        </span>
+
+                    </button>
+
+
+
+                    <button
+                        class="study-flashcard"
+                        type="button"
+                        onclick="toggleStudyFlashcard(this)">
+
+                        <span class="flashcard-number">
+                            FLASHCARD 02
+                        </span>
+
+                        <span class="flashcard-question">
+                            Qual a faixa etária de rastreamento
+                            mamográfico recomendada pelo
+                            Ministério da Saúde?
+                        </span>
+
+                        <span class="flashcard-hint">
+                            Clique para revelar a resposta →
+                        </span>
+
+                        <span class="flashcard-answer">
+                            Para mulheres assintomáticas, a
+                            recomendação do Ministério da Saúde
+                            é mamografia a cada dois anos entre
+                            50 e 69 anos.
+                        </span>
+
+                    </button>
+
+
+
+                    <button
+                        class="study-flashcard"
+                        type="button"
+                        onclick="toggleStudyFlashcard(this)">
+
+                        <span class="flashcard-number">
+                            FLASHCARD 03
+                        </span>
+
+                        <span class="flashcard-question">
+                            O que significa BI-RADS?
+                        </span>
+
+                        <span class="flashcard-hint">
+                            Clique para revelar a resposta →
+                        </span>
+
+                        <span class="flashcard-answer">
+                            Breast Imaging Reporting and Data
+                            System, sistema utilizado para
+                            padronizar a classificação dos
+                            achados de imagem da mama.
+                        </span>
+
+                    </button>
+
+
+
+                    <button
+                        class="study-flashcard"
+                        type="button"
+                        onclick="toggleStudyFlashcard(this)">
+
+                        <span class="flashcard-number">
+                            FLASHCARD 04
+                        </span>
+
+                        <span class="flashcard-question">
+                            Qual a conduta geral para uma
+                            lesão BI-RADS 3?
+                        </span>
+
+                        <span class="flashcard-hint">
+                            Clique para revelar a resposta →
+                        </span>
+
+                        <span class="flashcard-answer">
+                            Geralmente é indicado acompanhamento
+                            por imagem em intervalo curto,
+                            conforme avaliação médica e o
+                            protocolo utilizado.
+                        </span>
+
+                    </button>
+
+
+
+                    <button
+                        class="study-flashcard"
+                        type="button"
+                        onclick="toggleStudyFlashcard(this)">
+
+                        <span class="flashcard-number">
+                            FLASHCARD 05
+                        </span>
+
+                        <span class="flashcard-question">
+                            Qual é o tipo histológico mais comum
+                            de câncer de mama invasivo?
+                        </span>
+
+                        <span class="flashcard-hint">
+                            Clique para revelar a resposta →
+                        </span>
+
+                        <span class="flashcard-answer">
+                            O carcinoma invasivo de tipo não
+                            especial, historicamente chamado de
+                            carcinoma ductal invasivo, é o tipo
+                            mais frequente.
+                        </span>
+
+                    </button>
+
+
+
+                    <button
+                        class="study-flashcard"
+                        type="button"
+                        onclick="toggleStudyFlashcard(this)">
+
+                        <span class="flashcard-number">
+                            FLASHCARD 06
+                        </span>
+
+                        <span class="flashcard-question">
+                            Quais são alguns fatores de risco
+                            importantes para câncer de mama?
+                        </span>
+
+                        <span class="flashcard-hint">
+                            Clique para revelar a resposta →
+                        </span>
+
+                        <span class="flashcard-answer">
+                            Idade, histórico familiar, algumas
+                            alterações genéticas, exposição
+                            hormonal e determinados fatores
+                            relacionados ao estilo de vida.
+                        </span>
+
+                    </button>
+
+
+                </div>
+
+            `;
+
+            studyContent.style.display =
+                "block";
+
+            studyContent.scrollIntoView({
+                behavior: "smooth",
+                block: "start"
+            });
+
+            return;
+        }
+
+
+
+        /* =================================================
+           MAPAS MENTAIS
+        ================================================== */
+
+        if (type === "mapas") {
+
+            studyContentBadge.textContent =
+                "REVISÃO VISUAL";
+
+            studyContentTitle.textContent =
+                "Mapas mentais";
+
+
+            studyContentBody.innerHTML = `
+
+                <p style="
+                    margin-bottom:20px;
+                    color:var(--dark-soft);
+                ">
+                    Revise os principais conceitos de forma
+                    visual e organizada.
+                </p>
+
+
+                <div class="study-maps">
+
+
+                    <!-- MAPA 01 -->
+
+                    <article class="study-map">
+
+                        <div class="study-map-icon">
+                            🩷
+                        </div>
+
+                        <h3>
+                            Câncer de Mama
+                        </h3>
+
+                        <p>
+                            Visão geral desde fatores de risco
+                            até investigação e tratamento.
+                        </p>
+
+                        <div class="map-flow">
+
+                            <span class="map-step">
+                                Fatores de risco
+                            </span>
+
+                            <span class="map-arrow">
+                                →
+                            </span>
+
+                            <span class="map-step">
+                                Rastreamento
+                            </span>
+
+                            <span class="map-arrow">
+                                →
+                            </span>
+
+                            <span class="map-step">
+                                Diagnóstico
+                            </span>
+
+                            <span class="map-arrow">
+                                →
+                            </span>
+
+                            <span class="map-step">
+                                Tratamento
+                            </span>
+
+                        </div>
+
+                    </article>
+
+
+
+                    <!-- MAPA 02 -->
+
+                    <article class="study-map">
+
+                        <div class="study-map-icon">
+                            🔎
+                        </div>
+
+                        <h3>
+                            Investigação do Nódulo Mamário
+                        </h3>
+
+                        <p>
+                            Organização dos principais passos
+                            utilizados na avaliação clínica.
+                        </p>
+
+                        <div class="map-flow">
+
+                            <span class="map-step">
+                                Anamnese
+                            </span>
+
+                            <span class="map-arrow">
+                                →
+                            </span>
+
+                            <span class="map-step">
+                                Exame físico
+                            </span>
+
+                            <span class="map-arrow">
+                                →
+                            </span>
+
+                            <span class="map-step">
+                                Imagem
+                            </span>
+
+                            <span class="map-arrow">
+                                →
+                            </span>
+
+                            <span class="map-step">
+                                Conduta
+                            </span>
+
+                        </div>
+
+                    </article>
+
+
+
+                    <!-- MAPA 03 -->
+
+                    <article class="study-map">
+
+                        <div class="study-map-icon">
+                            🧠
+                        </div>
+
+                        <h3>
+                            Classificação BI-RADS
+                        </h3>
+
+                        <p>
+                            Relembre de forma rápida a lógica
+                            geral das categorias do sistema
+                            BI-RADS.
+                        </p>
+
+                        <div class="map-flow">
+
+                            <span class="map-step">
+                                0
+                            </span>
+
+                            <span class="map-arrow">
+                                →
+                            </span>
+
+                            <span class="map-step">
+                                1–2
+                            </span>
+
+                            <span class="map-arrow">
+                                →
+                            </span>
+
+                            <span class="map-step">
+                                3
+                            </span>
+
+                            <span class="map-arrow">
+                                →
+                            </span>
+
+                            <span class="map-step">
+                                4–5
+                            </span>
+
+                            <span class="map-arrow">
+                                →
+                            </span>
+
+                            <span class="map-step">
+                                6
+                            </span>
+
+                        </div>
+
+                    </article>
+
+
+                </div>
+
+            `;
+
+            studyContent.style.display =
+                "block";
+
+            studyContent.scrollIntoView({
+                behavior: "smooth",
+                block: "start"
+            });
+
+            return;
+        }
+
+
+
+        /* =================================================
+           OUTROS MATERIAIS
+           
+           Se o questoes.js já possui openStudy(),
+           continua usando a função original.
+        ================================================== */
+
+        if (typeof originalOpenStudy === "function") {
+
+            originalOpenStudy(type);
+
+        }
+
+    };
+
+
+
+    /* =====================================================
+       FLASHCARD — MOSTRAR / ESCONDER RESPOSTA
+    ====================================================== */
+
+    window.toggleStudyFlashcard =
+        function(card) {
+
+            card.classList.toggle(
+                "revealed"
+            );
+
+        };
+
+
+
+    /* =====================================================
+       FECHAR MATERIAL
+       
+       Mantém a função original quando ela existir.
+    ====================================================== */
+
+    window.closeStudy = function() {
+
+        if (typeof originalCloseStudy === "function") {
+
+            originalCloseStudy();
+
+            return;
+
+        }
+
+
+        const studyContent =
+            document.getElementById(
+                "studyContent"
+            );
+
+
+        if (studyContent) {
+
+            studyContent.style.display =
+                "none";
+
+        }
+
+    };
+
+</script>
+
+
+</body>
+
+</html>

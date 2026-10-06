@@ -1,0 +1,1539 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0">
+
+    <title>Calculadora Clínica | RosaMed</title>
+
+    <link rel="stylesheet"
+          href="./css/style.css">
+
+
+    <style>
+
+        /* =====================================================
+           CENTRAL DE CALCULADORAS
+        ====================================================== */
+
+        .calculator-intro {
+            margin-bottom: 35px;
+        }
+
+
+        .calculator-grid {
+
+            display: grid;
+
+            grid-template-columns:
+                repeat(2, 1fr);
+
+            gap: 24px;
+
+        }
+
+
+        .clinical-calculator {
+
+            background:
+                linear-gradient(
+                    145deg,
+                    var(--white),
+                    var(--cream)
+                );
+
+            border: 2px solid var(--pink-light);
+
+            border-radius: 22px;
+
+            padding: 28px;
+
+            box-shadow: var(--shadow);
+
+            transition:
+                transform 0.2s ease,
+                box-shadow 0.2s ease;
+
+        }
+
+
+        .clinical-calculator:hover {
+
+            transform: translateY(-4px);
+
+            box-shadow: var(--shadow-hover);
+
+        }
+
+
+        .calculator-header {
+
+            display: flex;
+
+            align-items: center;
+
+            gap: 15px;
+
+            margin-bottom: 22px;
+
+        }
+
+
+        .calculator-icon {
+
+            width: 55px;
+            height: 55px;
+
+            flex-shrink: 0;
+
+            display: flex;
+
+            align-items: center;
+            justify-content: center;
+
+            border-radius: 16px;
+
+            background:
+                linear-gradient(
+                    135deg,
+                    var(--pink),
+                    var(--orange)
+                );
+
+            color: var(--white);
+
+            font-size: 1.5rem;
+
+        }
+
+
+        .calculator-header h3 {
+
+            color: var(--dark);
+
+            margin-bottom: 4px;
+
+        }
+
+
+        .calculator-header p {
+
+            color: var(--gray);
+
+            font-size: 0.85rem;
+
+            margin: 0;
+
+        }
+
+
+        .calculator-form {
+
+            display: grid;
+
+            gap: 13px;
+
+        }
+
+
+        .calculator-form label {
+
+            color: var(--dark);
+
+            font-weight: 700;
+
+            font-size: 0.9rem;
+
+        }
+
+
+        .calculator-form input,
+        .calculator-form select {
+
+            width: 100%;
+
+            padding: 13px 15px;
+
+            border-radius: 12px;
+
+            border: 2px solid var(--cream-dark);
+
+            background: var(--white);
+
+            color: var(--dark);
+
+            font-size: 0.95rem;
+
+            outline: none;
+
+            transition:
+                border-color 0.2s ease,
+                box-shadow 0.2s ease;
+
+        }
+
+
+        .calculator-form input:focus,
+        .calculator-form select:focus {
+
+            border-color: var(--pink);
+
+            box-shadow:
+                0 0 0 4px
+                rgba(232, 63, 120, 0.10);
+
+        }
+
+
+        .calculator-result {
+
+            margin-top: 20px;
+
+            padding: 18px;
+
+            border-radius: 15px;
+
+            background:
+                linear-gradient(
+                    135deg,
+                    var(--pink-soft),
+                    var(--orange-soft)
+                );
+
+            border: 2px solid var(--pink-light);
+
+            color: var(--dark);
+
+            min-height: 60px;
+
+        }
+
+
+        .calculator-result strong {
+
+            display: block;
+
+            color: var(--pink-dark);
+
+            font-size: 1.3rem;
+
+            margin-bottom: 5px;
+
+        }
+
+
+        .calculator-result span {
+
+            display: block;
+
+            color: var(--dark-soft);
+
+            line-height: 1.5;
+
+        }
+
+
+        .calculator-form .btn-primary {
+
+            margin-top: 5px;
+
+        }
+
+
+        .formula-box {
+
+            margin-top: 16px;
+
+            padding: 14px 16px;
+
+            border-radius: 13px;
+
+            background:
+                var(--butter-soft);
+
+            border-left: 4px solid var(--butter-dark);
+
+        }
+
+
+        .formula-box strong {
+
+            display: block;
+
+            color: var(--dark);
+
+            font-size: 0.8rem;
+
+            margin-bottom: 5px;
+
+        }
+
+
+        .formula-box span {
+
+            color: var(--dark-soft);
+
+            font-size: 0.8rem;
+
+            line-height: 1.5;
+
+        }
+
+
+        /* =====================================================
+           CLASSIFICAÇÃO DO IMC
+        ====================================================== */
+
+        .bmi-scale {
+
+            display: grid;
+
+            grid-template-columns:
+                repeat(4, 1fr);
+
+            gap: 8px;
+
+            margin-top: 20px;
+
+        }
+
+
+        .bmi-scale-item {
+
+            padding: 10px 6px;
+
+            border-radius: 10px;
+
+            text-align: center;
+
+            font-size: 0.7rem;
+
+            font-weight: 800;
+
+            background:
+                var(--cream);
+
+            color: var(--dark);
+
+        }
+
+
+        .bmi-scale-item strong {
+
+            display: block;
+
+            font-size: 0.8rem;
+
+            margin-bottom: 3px;
+
+        }
+
+
+        /* =====================================================
+           SEÇÃO DE REFERÊNCIA
+        ====================================================== */
+
+        .calculator-reference {
+
+            margin-top: 40px;
+
+            padding: 30px;
+
+            border-radius: 24px;
+
+            background:
+                linear-gradient(
+                    135deg,
+                    var(--pink-deep),
+                    var(--pink-dark),
+                    var(--orange-dark)
+                );
+
+            color: var(--white);
+
+            box-shadow: var(--shadow);
+
+        }
+
+
+        .calculator-reference h2 {
+
+            color: var(--white);
+
+            margin-bottom: 10px;
+
+        }
+
+
+        .calculator-reference > p {
+
+            color: rgba(255,255,255,0.88);
+
+            margin-bottom: 25px;
+
+        }
+
+
+        .reference-grid {
+
+            display: grid;
+
+            grid-template-columns:
+                repeat(3, 1fr);
+
+            gap: 16px;
+
+        }
+
+
+        .reference-card {
+
+            padding: 18px;
+
+            border-radius: 15px;
+
+            background:
+                rgba(255,255,255,0.10);
+
+            border:
+                1px solid
+                rgba(255,255,255,0.18);
+
+        }
+
+
+        .reference-card strong {
+
+            display: block;
+
+            margin-bottom: 7px;
+
+            color: var(--butter);
+
+        }
+
+
+        .reference-card span {
+
+            font-size: 0.85rem;
+
+            line-height: 1.5;
+
+            color:
+                rgba(255,255,255,0.85);
+
+        }
+
+
+        /* =====================================================
+           AVISO
+        ====================================================== */
+
+        .medical-warning-box {
+
+            margin-top: 30px;
+
+            padding: 20px;
+
+            border-radius: 16px;
+
+            background:
+                var(--butter-soft);
+
+            border:
+                2px solid
+                var(--butter-dark);
+
+            color: var(--dark);
+
+        }
+
+
+        .medical-warning-box strong {
+
+            display: block;
+
+            margin-bottom: 5px;
+
+            color: var(--orange-dark);
+
+        }
+
+
+        .medical-warning-box p {
+
+            margin: 0;
+
+            line-height: 1.5;
+
+            font-size: 0.9rem;
+
+        }
+
+
+        /* =====================================================
+           RESPONSIVO
+        ====================================================== */
+
+        @media (max-width: 900px) {
+
+            .calculator-grid {
+
+                grid-template-columns: 1fr;
+
+            }
+
+            .reference-grid {
+
+                grid-template-columns: 1fr;
+
+            }
+
+        }
+
+
+        @media (max-width: 600px) {
+
+            .bmi-scale {
+
+                grid-template-columns:
+                    repeat(2, 1fr);
+
+            }
+
+            .clinical-calculator {
+
+                padding: 20px;
+
+            }
+
+        }
+
+    </style>
+
+</head>
+
+
+<body>
+
+
+<header class="dashboard-header">
+
+    <a href="index.html"
+       class="logo">
+
+        <span class="logo-icon">
+            ✚
+        </span>
+
+        <span>
+            Rosa<span>Med</span>
+        </span>
+
+    </a>
+
+
+    <a href="index.html"
+       class="btn-outline">
+
+        ← Início
+
+    </a>
+
+</header>
+
+
+
+<main class="dashboard-content">
+
+
+    <!-- =====================================================
+         INTRODUÇÃO
+    ====================================================== -->
+
+    <section class="calculator-intro">
+
+        <div class="section-heading">
+
+            <span class="badge">
+                FERRAMENTAS CLÍNICAS
+            </span>
+
+            <h2>
+                Central de Cálculos Médicos
+            </h2>
+
+            <p>
+                Ferramentas de cálculo para auxiliar o estudo
+                de conceitos clínicos e interpretação de dados.
+            </p>
+
+        </div>
+
+    </section>
+
+
+
+    <!-- =====================================================
+         CALCULADORAS
+    ====================================================== -->
+
+    <section class="calculator-grid">
+
+
+        <!-- =================================================
+             IMC
+        ================================================== -->
+
+        <article class="clinical-calculator">
+
+            <div class="calculator-header">
+
+                <div class="calculator-icon">
+                    ⚖️
+                </div>
+
+                <div>
+
+                    <h3>
+                        Índice de Massa Corporal
+                    </h3>
+
+                    <p>
+                        IMC
+                    </p>
+
+                </div>
+
+            </div>
+
+
+            <div class="calculator-form">
+
+                <label for="weight">
+                    Peso (kg)
+                </label>
+
+                <input
+                    id="weight"
+                    type="number"
+                    step="0.1"
+                    min="0"
+                    placeholder="Ex.: 70"
+                >
+
+
+                <label for="height">
+                    Altura (m)
+                </label>
+
+                <input
+                    id="height"
+                    type="number"
+                    step="0.01"
+                    min="0"
+                    placeholder="Ex.: 1.70"
+                >
+
+
+                <button
+                    class="btn-primary"
+                    type="button"
+                    onclick="calculateBMI()">
+
+                    Calcular IMC
+
+                </button>
+
+            </div>
+
+
+            <div id="bmiResult"
+                 class="calculator-result">
+
+                <span>
+                    Informe peso e altura para calcular.
+                </span>
+
+            </div>
+
+
+            <div class="bmi-scale">
+
+                <div class="bmi-scale-item">
+                    <strong>&lt; 18,5</strong>
+                    Baixo peso
+                </div>
+
+                <div class="bmi-scale-item">
+                    <strong>18,5–24,9</strong>
+                    Adequado
+                </div>
+
+                <div class="bmi-scale-item">
+                    <strong>25–29,9</strong>
+                    Sobrepeso
+                </div>
+
+                <div class="bmi-scale-item">
+                    <strong>≥ 30</strong>
+                    Obesidade
+                </div>
+
+            </div>
+
+
+            <div class="formula-box">
+
+                <strong>
+                    Fórmula
+                </strong>
+
+                <span>
+                    IMC = peso (kg) ÷ altura² (m)
+                </span>
+
+            </div>
+
+        </article>
+
+
+
+        <!-- =================================================
+             SUPERFÍCIE CORPORAL
+        ================================================== -->
+
+        <article class="clinical-calculator">
+
+            <div class="calculator-header">
+
+                <div class="calculator-icon">
+                    📐
+                </div>
+
+                <div>
+
+                    <h3>
+                        Superfície Corporal
+                    </h3>
+
+                    <p>
+                        Fórmula de Mosteller
+                    </p>
+
+                </div>
+
+            </div>
+
+
+            <div class="calculator-form">
+
+                <label for="bsaWeight">
+                    Peso (kg)
+                </label>
+
+                <input
+                    id="bsaWeight"
+                    type="number"
+                    step="0.1"
+                    placeholder="Ex.: 70"
+                >
+
+
+                <label for="bsaHeight">
+                    Altura (cm)
+                </label>
+
+                <input
+                    id="bsaHeight"
+                    type="number"
+                    step="0.1"
+                    placeholder="Ex.: 170"
+                >
+
+
+                <button
+                    class="btn-primary"
+                    type="button"
+                    onclick="calculateBSA()">
+
+                    Calcular SC
+
+                </button>
+
+            </div>
+
+
+            <div id="bsaResult"
+                 class="calculator-result">
+
+                <span>
+                    Informe peso e altura.
+                </span>
+
+            </div>
+
+
+            <div class="formula-box">
+
+                <strong>
+                    Fórmula de Mosteller
+                </strong>
+
+                <span>
+                    SC = √[(peso × altura) ÷ 3600]
+                </span>
+
+            </div>
+
+        </article>
+
+
+
+        <!-- =================================================
+             PAM
+        ================================================== -->
+
+        <article class="clinical-calculator">
+
+            <div class="calculator-header">
+
+                <div class="calculator-icon">
+                    ❤️
+                </div>
+
+                <div>
+
+                    <h3>
+                        Pressão Arterial Média
+                    </h3>
+
+                    <p>
+                        PAM
+                    </p>
+
+                </div>
+
+            </div>
+
+
+            <div class="calculator-form">
+
+                <label for="systolic">
+                    Pressão sistólica (mmHg)
+                </label>
+
+                <input
+                    id="systolic"
+                    type="number"
+                    step="1"
+                    placeholder="Ex.: 120"
+                >
+
+
+                <label for="diastolic">
+                    Pressão diastólica (mmHg)
+                </label>
+
+                <input
+                    id="diastolic"
+                    type="number"
+                    step="1"
+                    placeholder="Ex.: 80"
+                >
+
+
+                <button
+                    class="btn-primary"
+                    type="button"
+                    onclick="calculateMAP()">
+
+                    Calcular PAM
+
+                </button>
+
+            </div>
+
+
+            <div id="mapResult"
+                 class="calculator-result">
+
+                <span>
+                    Informe a pressão arterial.
+                </span>
+
+            </div>
+
+
+            <div class="formula-box">
+
+                <strong>
+                    Fórmula
+                </strong>
+
+                <span>
+                    PAM ≈ (PAS + 2 × PAD) ÷ 3
+                </span>
+
+            </div>
+
+        </article>
+
+
+
+        <!-- =================================================
+             ÍNDICE DE CHOQUE
+        ================================================== -->
+
+        <article class="clinical-calculator">
+
+            <div class="calculator-header">
+
+                <div class="calculator-icon">
+                    🫀
+                </div>
+
+                <div>
+
+                    <h3>
+                        Índice de Choque
+                    </h3>
+
+                    <p>
+                        Shock Index
+                    </p>
+
+                </div>
+
+            </div>
+
+
+            <div class="calculator-form">
+
+                <label for="heartRate">
+                    Frequência cardíaca (bpm)
+                </label>
+
+                <input
+                    id="heartRate"
+                    type="number"
+                    step="1"
+                    placeholder="Ex.: 90"
+                >
+
+
+                <label for="shockSBP">
+                    Pressão sistólica (mmHg)
+                </label>
+
+                <input
+                    id="shockSBP"
+                    type="number"
+                    step="1"
+                    placeholder="Ex.: 120"
+                >
+
+
+                <button
+                    class="btn-primary"
+                    type="button"
+                    onclick="calculateShockIndex()">
+
+                    Calcular
+
+                </button>
+
+            </div>
+
+
+            <div id="shockResult"
+                 class="calculator-result">
+
+                <span>
+                    Informe FC e pressão sistólica.
+                </span>
+
+            </div>
+
+
+            <div class="formula-box">
+
+                <strong>
+                    Fórmula
+                </strong>
+
+                <span>
+                    Índice de choque = FC ÷ PAS
+                </span>
+
+            </div>
+
+        </article>
+
+
+
+        <!-- =================================================
+             ÂNION GAP
+        ================================================== -->
+
+        <article class="clinical-calculator">
+
+            <div class="calculator-header">
+
+                <div class="calculator-icon">
+                    🧪
+                </div>
+
+                <div>
+
+                    <h3>
+                        Ânion Gap
+                    </h3>
+
+                    <p>
+                        Equilíbrio ácido-base
+                    </p>
+
+                </div>
+
+            </div>
+
+
+            <div class="calculator-form">
+
+                <label for="agNa">
+                    Sódio (mEq/L)
+                </label>
+
+                <input
+                    id="agNa"
+                    type="number"
+                    step="0.1"
+                    placeholder="Ex.: 140"
+                >
+
+
+                <label for="agCl">
+                    Cloro (mEq/L)
+                </label>
+
+                <input
+                    id="agCl"
+                    type="number"
+                    step="0.1"
+                    placeholder="Ex.: 104"
+                >
+
+
+                <label for="agHco3">
+                    Bicarbonato (mEq/L)
+                </label>
+
+                <input
+                    id="agHco3"
+                    type="number"
+                    step="0.1"
+                    placeholder="Ex.: 24"
+                >
+
+
+                <button
+                    class="btn-primary"
+                    type="button"
+                    onclick="calculateAnionGap()">
+
+                    Calcular
+
+                </button>
+
+            </div>
+
+
+            <div id="anionGapResult"
+                 class="calculator-result">
+
+                <span>
+                    Informe Na⁺, Cl⁻ e HCO₃⁻.
+                </span>
+
+            </div>
+
+
+            <div class="formula-box">
+
+                <strong>
+                    Fórmula sem potássio
+                </strong>
+
+                <span>
+                    AG = Na⁺ − (Cl⁻ + HCO₃⁻)
+                </span>
+
+            </div>
+
+        </article>
+
+
+
+        <!-- =================================================
+             SÓDIO CORRIGIDO
+        ================================================== -->
+
+        <article class="clinical-calculator">
+
+            <div class="calculator-header">
+
+                <div class="calculator-icon">
+                    💧
+                </div>
+
+                <div>
+
+                    <h3>
+                        Sódio Corrigido
+                    </h3>
+
+                    <p>
+                        Hiperglicemia
+                    </p>
+
+                </div>
+
+            </div>
+
+
+            <div class="calculator-form">
+
+                <label for="correctedNa">
+                    Sódio medido (mEq/L)
+                </label>
+
+                <input
+                    id="correctedNa"
+                    type="number"
+                    step="0.1"
+                    placeholder="Ex.: 132"
+                >
+
+
+                <label for="glucose">
+                    Glicemia (mg/dL)
+                </label>
+
+                <input
+                    id="glucose"
+                    type="number"
+                    step="1"
+                    placeholder="Ex.: 300"
+                >
+
+
+                <button
+                    class="btn-primary"
+                    type="button"
+                    onclick="calculateCorrectedSodium()">
+
+                    Calcular
+
+                </button>
+
+            </div>
+
+
+            <div id="correctedNaResult"
+                 class="calculator-result">
+
+                <span>
+                    Informe sódio e glicemia.
+                </span>
+
+            </div>
+
+
+            <div class="formula-box">
+
+                <strong>
+                    Fórmula didática
+                </strong>
+
+                <span>
+                    Na corrigido ≈ Na medido +
+                    1,6 × [(glicemia − 100) ÷ 100]
+                </span>
+
+            </div>
+
+        </article>
+
+
+
+        <!-- =================================================
+             OSMOLARIDADE
+        ================================================== -->
+
+        <article class="clinical-calculator">
+
+            <div class="calculator-header">
+
+                <div class="calculator-icon">
+                    ⚗️
+                </div>
+
+                <div>
+
+                    <h3>
+                        Osmolaridade Calculada
+                    </h3>
+
+                    <p>
+                        Plasma
+                    </p>
+
+                </div>
+
+            </div>
+
+
+            <div class="calculator-form">
+
+                <label for="osmNa">
+                    Sódio (mEq/L)
+                </label>
+
+                <input
+                    id="osmNa"
+                    type="number"
+                    step="0.1"
+                    placeholder="Ex.: 140"
+                >
+
+
+                <label for="osmGlucose">
+                    Glicemia (mg/dL)
+                </label>
+
+                <input
+                    id="osmGlucose"
+                    type="number"
+                    step="1"
+                    placeholder="Ex.: 100"
+                >
+
+
+                <label for="bun">
+                    Ureia/BUN (mg/dL)
+                </label>
+
+                <input
+                    id="bun"
+                    type="number"
+                    step="1"
+                    placeholder="Ex.: 14"
+                >
+
+
+                <button
+                    class="btn-primary"
+                    type="button"
+                    onclick="calculateOsmolarity()">
+
+                    Calcular
+
+                </button>
+
+            </div>
+
+
+            <div id="osmResult"
+                 class="calculator-result">
+
+                <span>
+                    Informe os dados laboratoriais.
+                </span>
+
+            </div>
+
+
+            <div class="formula-box">
+
+                <strong>
+                    Fórmula
+                </strong>
+
+                <span>
+                    Osm ≈ 2 × Na + glicose/18 + BUN/2,8
+                </span>
+
+            </div>
+
+        </article>
+
+
+
+        <!-- =================================================
+             CLEARANCE DE CREATININA
+        ================================================== -->
+
+        <article class="clinical-calculator">
+
+            <div class="calculator-header">
+
+                <div class="calculator-icon">
+                    🧬
+                </div>
+
+                <div>
+
+                    <h3>
+                        Clearance de Creatinina
+                    </h3>
+
+                    <p>
+                        Cockcroft-Gault
+                    </p>
+
+                </div>
+
+            </div>
+
+
+            <div class="calculator-form">
+
+                <label for="crAge">
+                    Idade (anos)
+                </label>
+
+                <input
+                    id="crAge"
+                    type="number"
+                    step="1"
+                    placeholder="Ex.: 55"
+                >
+
+
+                <label for="crWeight">
+                    Peso (kg)
+                </label>
+
+                <input
+                    id="crWeight"
+                    type="number"
+                    step="0.1"
+                    placeholder="Ex.: 70"
+                >
+
+
+                <label for="crCreatinine">
+                    Creatinina sérica (mg/dL)
+                </label>
+
+                <input
+                    id="crCreatinine"
+                    type="number"
+                    step="0.01"
+                    placeholder="Ex.: 1.0"
+                >
+
+
+                <label for="crSex">
+                    Sexo utilizado na fórmula
+                </label>
+
+                <select id="crSex">
+
+                    <option value="male">
+                        Masculino
+                    </option>
+
+                    <option value="female">
+                        Feminino
+                    </option>
+
+                </select>
+
+
+                <button
+                    class="btn-primary"
+                    type="button"
+                    onclick="calculateCreatinineClearance()">
+
+                    Calcular
+
+                </button>
+
+            </div>
+
+
+            <div id="crResult"
+                 class="calculator-result">
+
+                <span>
+                    Informe os dados para estimar o clearance.
+                </span>
+
+            </div>
+
+
+            <div class="formula-box">
+
+                <strong>
+                    Cockcroft-Gault
+                </strong>
+
+                <span>
+                    CrCl = [(140 − idade) × peso] ÷
+                    [72 × creatinina] × fator feminino
+                </span>
+
+            </div>
+
+        </article>
+
+
+    </section>
+
+
+
+    <!-- =====================================================
+         REFERÊNCIA RÁPIDA
+    ====================================================== -->
+
+    <section class="calculator-reference">
+
+        <h2>
+            🩺 Guia rápido de estudo
+        </h2>
+
+        <p>
+            Alguns dos cálculos mais utilizados durante o
+            estudo de avaliação clínica e interpretação
+            laboratorial.
+        </p>
+
+
+        <div class="reference-grid">
+
+
+            <div class="reference-card">
+
+                <strong>
+                    IMC
+                </strong>
+
+                <span>
+                    Relação entre peso e altura utilizada
+                    principalmente para avaliação populacional
+                    do estado nutricional.
+                </span>
+
+            </div>
+
+
+            <div class="reference-card">
+
+                <strong>
+                    PAM
+                </strong>
+
+                <span>
+                    Estimativa da pressão arterial média
+                    durante o ciclo cardíaco.
+                </span>
+
+            </div>
+
+
+            <div class="reference-card">
+
+                <strong>
+                    Ânion Gap
+                </strong>
+
+                <span>
+                    Auxilia na avaliação do equilíbrio
+                    ácido-base, especialmente em distúrbios
+                    metabólicos.
+                </span>
+
+            </div>
+
+
+            <div class="reference-card">
+
+                <strong>
+                    Índice de Choque
+                </strong>
+
+                <span>
+                    Relação entre frequência cardíaca e
+                    pressão arterial sistólica.
+                </span>
+
+            </div>
+
+
+            <div class="reference-card">
+
+                <strong>
+                    Cockcroft-Gault
+                </strong>
+
+                <span>
+                    Estimativa do clearance de creatinina
+                    para aplicações clínicas específicas.
+                </span>
+
+            </div>
+
+
+            <div class="reference-card">
+
+                <strong>
+                    Superfície Corporal
+                </strong>
+
+                <span>
+                    Estimativa baseada em peso e altura,
+                    utilizada em diferentes contextos clínicos.
+                </span>
+
+            </div>
+
+
+        </div>
+
+
+        <div class="medical-warning-box">
+
+            <strong>
+                ⚠️ Importante
+            </strong>
+
+            <p>
+                Estas calculadoras têm finalidade educacional.
+                Os resultados não devem ser utilizados
+                isoladamente para diagnóstico, classificação
+                definitiva ou decisão terapêutica. Fórmulas
+                clínicas podem possuir limitações e diferentes
+                versões ou critérios de aplicação.
+            </p>
+
+        </div>
+
+    </section>
+
+
+</main>
+
+
+
+<script src="./js/calculadora.js"></script>
+
+
+</body>
+
+</html>

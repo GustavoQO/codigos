@@ -1,0 +1,658 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0">
+
+    <title>Bem-vindo | RosaMed</title>
+
+    <link rel="stylesheet"
+          href="./css/style.css">
+
+
+    <style>
+
+        /* =====================================================
+           WELCOME
+        ====================================================== */
+
+        .welcome-page {
+
+            min-height: 100vh;
+
+            display: flex;
+            align-items: center;
+            justify-content: center;
+
+            position: relative;
+            overflow: hidden;
+
+            background:
+                radial-gradient(
+                    circle at 15% 20%,
+                    rgba(246, 184, 205, 0.55),
+                    transparent 30%
+                ),
+                radial-gradient(
+                    circle at 85% 80%,
+                    rgba(255, 226, 122, 0.45),
+                    transparent 30%
+                ),
+                linear-gradient(
+                    135deg,
+                    var(--cream),
+                    var(--pink-soft)
+                );
+
+            animation: welcomeFadeIn 1s ease forwards;
+
+        }
+
+
+        /* =====================================================
+           CONTEÚDO
+        ====================================================== */
+
+        .welcome-content {
+
+            position: relative;
+            z-index: 5;
+
+            width: min(650px, 90%);
+
+            text-align: center;
+
+            animation: welcomeContent 1.2s ease forwards;
+
+        }
+
+
+        /* =====================================================
+           LOGO
+        ====================================================== */
+
+        .welcome-logo {
+
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+
+            gap: 10px;
+
+            margin-bottom: 35px;
+
+            font-size: 2rem;
+            font-weight: 900;
+
+            color: var(--dark);
+
+        }
+
+
+        .welcome-logo .logo-icon {
+
+            width: 55px;
+            height: 55px;
+
+            display: flex;
+            align-items: center;
+            justify-content: center;
+
+            border-radius: 16px;
+
+            background:
+                linear-gradient(
+                    135deg,
+                    var(--pink),
+                    var(--orange)
+                );
+
+            color: white;
+
+            box-shadow:
+                0 12px 30px rgba(232, 63, 120, 0.28);
+
+            font-size: 1.7rem;
+
+            animation: logoPulse 2s ease-in-out infinite;
+
+        }
+
+
+        .welcome-logo span span {
+
+            color: var(--pink);
+
+        }
+
+
+        /* =====================================================
+           BADGE
+        ====================================================== */
+
+        .welcome-badge {
+
+            display: inline-flex;
+
+            padding: 9px 18px;
+
+            margin-bottom: 20px;
+
+            border-radius: 999px;
+
+            background:
+                linear-gradient(
+                    90deg,
+                    var(--pink),
+                    var(--orange)
+                );
+
+            color: white;
+
+            font-size: 0.75rem;
+            font-weight: 800;
+
+            letter-spacing: 1.5px;
+
+            box-shadow:
+                0 8px 20px rgba(232, 63, 120, 0.20);
+
+        }
+
+
+        /* =====================================================
+           TÍTULO
+        ====================================================== */
+
+        .welcome-content h1 {
+
+            margin: 0 0 18px;
+
+            color: var(--dark);
+
+            font-size: clamp(2.7rem, 7vw, 5rem);
+
+            line-height: 1;
+
+            letter-spacing: -2px;
+
+        }
+
+
+        .welcome-content h1 span {
+
+            display: block;
+
+            background:
+                linear-gradient(
+                    90deg,
+                    var(--pink),
+                    var(--orange)
+                );
+
+            -webkit-background-clip: text;
+            background-clip: text;
+
+            color: transparent;
+
+        }
+
+
+        .welcome-content p {
+
+            max-width: 530px;
+
+            margin: 0 auto;
+
+            color: var(--gray);
+
+            font-size: 1.05rem;
+
+            line-height: 1.7;
+
+        }
+
+
+        /* =====================================================
+           INDICADOR
+        ====================================================== */
+
+        .welcome-loading {
+
+            margin: 42px auto 0;
+
+            width: 180px;
+
+        }
+
+
+        .welcome-loading-text {
+
+            margin-bottom: 10px;
+
+            color: var(--pink-dark);
+
+            font-size: 0.75rem;
+            font-weight: 700;
+
+            letter-spacing: 1px;
+
+        }
+
+
+        .welcome-loading-track {
+
+            width: 100%;
+            height: 6px;
+
+            overflow: hidden;
+
+            border-radius: 999px;
+
+            background: rgba(232, 63, 120, 0.15);
+
+        }
+
+
+        .welcome-loading-bar {
+
+            width: 0%;
+            height: 100%;
+
+            border-radius: inherit;
+
+            background:
+                linear-gradient(
+                    90deg,
+                    var(--pink),
+                    var(--orange),
+                    var(--butter-dark)
+                );
+
+            animation: loadingBar 3.5s linear forwards;
+
+        }
+
+
+        /* =====================================================
+           DECORAÇÕES
+        ====================================================== */
+
+        .welcome-circle {
+
+            position: absolute;
+
+            border-radius: 50%;
+
+            pointer-events: none;
+
+        }
+
+
+        .welcome-circle-one {
+
+            width: 300px;
+            height: 300px;
+
+            top: -120px;
+            left: -100px;
+
+            background: var(--pink-light);
+
+            opacity: 0.55;
+
+            animation: floatingCircle 5s ease-in-out infinite;
+
+        }
+
+
+        .welcome-circle-two {
+
+            width: 240px;
+            height: 240px;
+
+            right: -90px;
+            bottom: -80px;
+
+            background: var(--butter);
+
+            opacity: 0.55;
+
+            animation: floatingCircle 6s ease-in-out infinite reverse;
+
+        }
+
+
+        .welcome-circle-three {
+
+            width: 90px;
+            height: 90px;
+
+            right: 15%;
+            top: 15%;
+
+            background: var(--orange-light);
+
+            opacity: 0.55;
+
+            animation: floatingSmall 4s ease-in-out infinite;
+
+        }
+
+
+        /* =====================================================
+           ANIMAÇÕES
+        ====================================================== */
+
+        @keyframes welcomeFadeIn {
+
+            from {
+                opacity: 0;
+            }
+
+            to {
+                opacity: 1;
+            }
+
+        }
+
+
+        @keyframes welcomeContent {
+
+            from {
+
+                opacity: 0;
+
+                transform:
+                    translateY(30px)
+                    scale(0.97);
+
+            }
+
+            to {
+
+                opacity: 1;
+
+                transform:
+                    translateY(0)
+                    scale(1);
+
+            }
+
+        }
+
+
+        @keyframes logoPulse {
+
+            0%,
+            100% {
+
+                transform: scale(1);
+
+            }
+
+            50% {
+
+                transform: scale(1.07);
+
+            }
+
+        }
+
+
+        @keyframes loadingBar {
+
+            from {
+                width: 0%;
+            }
+
+            to {
+                width: 100%;
+            }
+
+        }
+
+
+        @keyframes floatingCircle {
+
+            0%,
+            100% {
+
+                transform:
+                    translate(0, 0);
+
+            }
+
+            50% {
+
+                transform:
+                    translate(15px, -20px);
+
+            }
+
+        }
+
+
+        @keyframes floatingSmall {
+
+            0%,
+            100% {
+
+                transform:
+                    translateY(0);
+
+            }
+
+            50% {
+
+                transform:
+                    translateY(-18px);
+
+            }
+
+        }
+
+
+        /* =====================================================
+           SAÍDA DA PÁGINA
+        ====================================================== */
+
+        .welcome-page.leaving {
+
+            animation:
+                welcomeExit 0.8s ease forwards;
+
+        }
+
+
+        @keyframes welcomeExit {
+
+            from {
+
+                opacity: 1;
+
+                transform:
+                    scale(1);
+
+            }
+
+            to {
+
+                opacity: 0;
+
+                transform:
+                    scale(1.04);
+
+            }
+
+        }
+
+
+        /* =====================================================
+           MOBILE
+        ====================================================== */
+
+        @media (max-width: 600px) {
+
+            .welcome-logo {
+
+                font-size: 1.7rem;
+
+            }
+
+
+            .welcome-logo .logo-icon {
+
+                width: 48px;
+                height: 48px;
+
+            }
+
+
+            .welcome-content h1 {
+
+                font-size: 3rem;
+
+            }
+
+
+            .welcome-content p {
+
+                font-size: 0.95rem;
+
+            }
+
+
+            .welcome-circle-one {
+
+                width: 220px;
+                height: 220px;
+
+            }
+
+
+            .welcome-circle-two {
+
+                width: 180px;
+                height: 180px;
+
+            }
+
+        }
+
+    </style>
+
+</head>
+
+
+<body class="welcome-page">
+
+
+    <!-- DECORAÇÕES -->
+
+    <div class="welcome-circle welcome-circle-one"></div>
+
+    <div class="welcome-circle welcome-circle-two"></div>
+
+    <div class="welcome-circle welcome-circle-three"></div>
+
+
+
+    <!-- CONTEÚDO -->
+
+    <main class="welcome-content">
+
+
+        <div class="welcome-logo">
+
+            <span class="logo-icon">
+                ✚
+            </span>
+
+            <span>
+                Rosa<span>Med</span>
+            </span>
+
+        </div>
+
+
+
+        <span class="welcome-badge">
+            EDUCAÇÃO MÉDICA
+        </span>
+
+
+
+        <h1>
+
+            Bem-vindo à
+
+            <span>
+                RosaMed
+            </span>
+
+        </h1>
+
+
+
+        <p>
+
+            Uma plataforma criada para acompanhar
+            sua jornada de aprendizagem e ajudar você
+            a evoluir cada vez mais na área da saúde.
+
+        </p>
+
+
+
+        <div class="welcome-loading">
+
+            <div class="welcome-loading-text">
+                Preparando seu acesso...
+            </div>
+
+            <div class="welcome-loading-track">
+
+                <div class="welcome-loading-bar"></div>
+
+            </div>
+
+        </div>
+
+
+    </main>
+
+
+
+    <script>
+
+        /*
+         * Aguarda a animação de boas-vindas
+         * e depois abre a tela de login.
+         */
+
+        setTimeout(() => {
+
+            document
+                .querySelector(".welcome-page")
+                .classList.add("leaving");
+
+
+            setTimeout(() => {
+
+                window.location.href = "login.html";
+
+            }, 800);
+
+        }, 3500);
+
+    </script>
+
+
+</body>
+
+</html>
